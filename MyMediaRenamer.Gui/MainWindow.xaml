@@ -46,9 +46,11 @@
                             Style="{StaticResource IconOnlyButton}"/>
                     <Button Content="&#xf062;"
                             ToolTip="Move Up"
+                            Command="{Binding MoveMediaFileUpCommand}"
                             Style="{StaticResource IconOnlyButton}"/>
                     <Button Content="&#xf063;"
                             ToolTip="Move Down"
+                            Command="{Binding MoveMediaFileDownCommand}"
                             Style="{StaticResource IconOnlyButton}"/>
                 </StackPanel>
                 <ListView x:Name="MediaFilesListView"

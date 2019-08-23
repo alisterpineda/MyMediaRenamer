@@ -27,6 +27,8 @@ namespace MyMediaRenamer.Gui
         {
             AddMediaFilesCommand = new RelayCommand(x => DoAddMediaFiles());
             RemoveMediaFilesCommand = new RelayCommand(x => DoRemoveMediaFiles(x), x => CanRemoveMediaFiles());
+            MoveMediaFileUpCommand = new RelayCommand(x => DoMoveMediaFileUp(), x => CanMoveMediaFileUp());
+            MoveMediaFileDownCommand = new RelayCommand(x => DoMoveMediaFileDown(), x => CanMoveMediaFileDown());
         }
 
         #endregion
@@ -64,6 +66,8 @@ namespace MyMediaRenamer.Gui
         #region ICommands
         public ICommand AddMediaFilesCommand { get; }
         public ICommand RemoveMediaFilesCommand { get; }
+        public ICommand MoveMediaFileUpCommand { get; }
+        public ICommand MoveMediaFileDownCommand { get; }
         #endregion
 
         #endregion
@@ -109,6 +113,26 @@ namespace MyMediaRenamer.Gui
 
             foreach (MediaFileViewModel mediaFile in mediaFilesToRemove)
                 MediaFiles.Remove(mediaFile);
+        }
+
+        private bool CanMoveMediaFileUp()
+        {
+            return SelectedMediaFileIndex > 0;
+        }
+
+        private void DoMoveMediaFileUp()
+        {
+            MediaFiles.Move(SelectedMediaFileIndex, SelectedMediaFileIndex - 1);
+        }
+
+        private bool CanMoveMediaFileDown()
+        {
+            return SelectedMediaFileIndex < MediaFiles.Count - 1;
+        }
+
+        private void DoMoveMediaFileDown()
+        {
+            MediaFiles.Move(SelectedMediaFileIndex, SelectedMediaFileIndex + 1);
         }
 
         #endregion
