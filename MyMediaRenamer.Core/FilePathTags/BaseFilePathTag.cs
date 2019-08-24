@@ -17,11 +17,20 @@ namespace MyMediaRenamer.Core.FilePathTags
             foreach (var option in ParseTagOptionsString(tagOptionsString))
             {
                 PropertyInfo property = this.GetType().GetProperty(option.Key, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                if (property == null)
+                    throw new ArgumentException($"Invalid option key: '{option.Key}'");
 
                 if (property.PropertyType.IsEnum)
                 {
-                    GetType().BaseType.GetTypeInfo().GetDeclaredMethod("SetEnumProperty")
-                        .MakeGenericMethod(property.PropertyType).Invoke(this, new object[] { property, option.Value });
+                    if (GetType().BaseType.GetTypeInfo().GetDeclaredMethod("SetEnumProperty")
+                        .MakeGenericMethod(property.PropertyType)
+                        .Invoke(this, new object[] {property, option.Value}) is bool test)
+                    {
+                        if (!test)
+                            throw new ArgumentException($"Invalid option value: '{option.Value}'");
+                    }
+                    else
+                        throw new InvalidOperationException();
                 }
                 else if (property.PropertyType == typeof(int))
                 {
@@ -33,7 +42,7 @@ namespace MyMediaRenamer.Core.FilePathTags
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new InvalidOperationException();
                 }
             }
         }
@@ -73,10 +82,12 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         }
 
-        private void SetEnumProperty<T>(PropertyInfo property, string stringValue) where T : struct
+        private bool SetEnumProperty<T>(PropertyInfo property, string stringValue) where T : struct
         {
-            Enum.TryParse(stringValue, true, out T enumVal);
-            property.SetValue(this, enumVal);
+            bool validEnum = Enum.TryParse(stringValue, true, out T enumVal);
+            if (validEnum)
+                property.SetValue(this, enumVal);
+            return validEnum;
         }
 
         #endregion
