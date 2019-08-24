@@ -73,8 +73,11 @@ namespace MyMediaRenamer.Gui
 
                 _patternErrorMessage = value;
                 OnPropertyChanged(nameof(PatternErrorMessage));
+                OnPropertyChanged(nameof(HasPatternErrorMessage));
             }
         }
+
+        public bool HasPatternErrorMessage => !string.IsNullOrEmpty(PatternErrorMessage);
 
         public List<BaseFilePathTag> Tags { get; private set; }
 

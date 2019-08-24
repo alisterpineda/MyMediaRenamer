@@ -36,8 +36,9 @@
                         Content="&#xf141;"
                         Style="{StaticResource IconOnlyButton}"/>
                 <TextBlock Grid.Row="1"
-                         Grid.ColumnSpan="2"
-                         Text="{Binding PatternErrorMessage}"/>
+                           Grid.ColumnSpan="2"
+                           Visibility="{Binding HasPatternErrorMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Text="{Binding PatternErrorMessage}"/>
             </Grid>
             <DockPanel x:Name="MediaFilesListPanel"
                        Grid.Row="1">

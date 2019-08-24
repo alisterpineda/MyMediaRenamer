@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Resources/Styles/Buttons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <FontFamily x:Key="FontAwesome">pack://application:,,,/Resources/Fonts/FontAwesome.otf#Font Awesome 5 Free Solid"</FontFamily>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
