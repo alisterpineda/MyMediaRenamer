@@ -86,7 +86,14 @@ namespace MyMediaRenamer.Core
                 tagOptionsString = match.Groups[2].ToString();
             }
 
-            return FilePathTagLookup[tagType](tagOptionsString, mediaRenamer);
+            try
+            {
+                return FilePathTagLookup[tagType](tagOptionsString, mediaRenamer);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new FormatException($"Invalid tag type: '{tagType}'");
+            }
         }
 
         #endregion
