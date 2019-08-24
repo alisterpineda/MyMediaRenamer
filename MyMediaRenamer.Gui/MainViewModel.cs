@@ -9,6 +9,7 @@ using System.Windows.Input;
 using MetadataToolWpf;
 using Microsoft.Win32;
 using MyMediaRenamer.Core;
+using MyMediaRenamer.Core.FilePathTags;
 
 namespace MyMediaRenamer.Gui
 {
@@ -16,6 +17,8 @@ namespace MyMediaRenamer.Gui
     {
         #region Members
 
+        private string _pattern;
+        private string _patternErrorMessage;
         private int _selectedMediaFileIndex;
         private MediaFileViewModel _selectedMediaFileItem;
 
@@ -34,6 +37,46 @@ namespace MyMediaRenamer.Gui
         #endregion
 
         #region Properties
+
+        public string Pattern
+        {
+            get => _pattern;
+            set
+            {
+                if (value == _pattern)
+                    return;
+
+                _pattern = value;
+
+                try
+                {
+                    Tags = PatternParser.Parse(Pattern);
+                    PatternErrorMessage = string.Empty;
+                }
+                catch (Exception e)
+                {
+                    PatternErrorMessage = e.Message;
+                }
+
+                OnPropertyChanged(nameof(Pattern));
+
+            }
+        }
+
+        public string PatternErrorMessage
+        {
+            get => _patternErrorMessage;
+            set
+            {
+                if (value == _patternErrorMessage)
+                    return;
+
+                _patternErrorMessage = value;
+                OnPropertyChanged(nameof(PatternErrorMessage));
+            }
+        }
+
+        public List<BaseFilePathTag> Tags { get; private set; }
 
         public ObservableCollection<MediaFileViewModel> MediaFiles { get; } = new ObservableCollection<MediaFileViewModel>();
 
