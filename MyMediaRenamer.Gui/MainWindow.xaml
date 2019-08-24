@@ -31,7 +31,8 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="PatternTextBox"
-                         Text="{Binding Pattern, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>
+                         Text="{Binding Pattern, UpdateSourceTrigger=PropertyChanged, Delay=500}"
+                         TextWrapping="Wrap"/>
                 <Button Grid.Column="1"
                         Content="&#xf141;"
                         Style="{StaticResource IconOnlyButton}"/>
