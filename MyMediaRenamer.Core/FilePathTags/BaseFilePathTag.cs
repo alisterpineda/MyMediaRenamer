@@ -10,7 +10,7 @@ namespace MyMediaRenamer.Core.FilePathTags
     {
         #region Constructors
 
-        protected BaseFilePathTag(MediaRenamer parent, string tagOptionsString)
+        protected BaseFilePathTag(string tagOptionsString = null, MediaRenamer parent = null)
         {
             Parent = parent;
 
@@ -50,6 +50,9 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         #region Methods
 
+        public abstract override bool Equals(object obj);
+        public abstract override int GetHashCode();
+        public abstract override string ToString();
         protected abstract string GenerateString(MediaFile mediaFile);
 
         public string GetString(MediaFile mediaFile)
@@ -61,7 +64,8 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         private Dictionary<string, string> ParseTagOptionsString(string tagOptions)
         {
-            if (string.IsNullOrEmpty(tagOptions)) return new Dictionary<string, string>();
+            if (string.IsNullOrEmpty(tagOptions))
+                return new Dictionary<string, string>();
 
             return tagOptions.Split(';')
                 .Select(x => x.Split('='))

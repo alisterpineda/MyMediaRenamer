@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Mime;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -31,7 +32,7 @@ namespace MyMediaRenamer.Core.FilePathTags
         #endregion
 
         #region Constructors
-        public HashFilePathTag(MediaRenamer parent, string tokenOptions) : base(parent, tokenOptions)
+        public HashFilePathTag(string tagOptionsString = null, MediaRenamer parent = null) : base(tagOptionsString, parent)
         {
         }
         #endregion
@@ -42,6 +43,25 @@ namespace MyMediaRenamer.Core.FilePathTags
         #endregion
 
         #region Methods
+
+        public override bool Equals(object obj)
+        {
+            HashFilePathTag other = obj as HashFilePathTag;
+            if (other == null)
+                return false;
+            return Algorithm.Equals(other.Algorithm);
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override string GenerateString(MediaFile mediaFile)
         {
             using (var stream = File.OpenRead(mediaFile.FilePath))

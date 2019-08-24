@@ -17,10 +17,10 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
         };
 
         [TestCaseSource(nameof(GetStringCases))]
-        public void GetStringTest(string fileName, string tokenOptions, string expectedString)
+        public void GetStringTest(string fileName, string tagOptionsString, string expectedString)
         {
             MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(fileName));
-            HashFilePathTag testTag = new HashFilePathTag(MediaRenamer, tokenOptions);
+            HashFilePathTag testTag = new HashFilePathTag(tagOptionsString);
 
             string actualString = testTag.GetString(testMediaFile);
 
