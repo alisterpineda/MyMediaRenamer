@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MyMediaRenamer.Core
+﻿namespace MyMediaRenamer.Core
 {
     public class MediaRenamer
     {
