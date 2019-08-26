@@ -23,9 +23,9 @@ namespace MyMediaRenamer.Core.FilePathTags
                 {
                     if (GetType().BaseType.GetTypeInfo().GetDeclaredMethod("SetEnumProperty")
                         .MakeGenericMethod(property.PropertyType)
-                        .Invoke(this, new object[] {property, option.Value}) is bool test)
+                        .Invoke(this, new object[] {property, option.Value}) is bool validEnum)
                     {
-                        if (!test)
+                        if (!validEnum)
                             throw new ArgumentException($"Invalid option value: '{option.Value}'");
                     }
                     else
