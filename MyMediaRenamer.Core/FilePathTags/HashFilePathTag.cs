@@ -62,7 +62,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         protected override string GenerateString(MediaFile mediaFile)
         {
-            using (var stream = File.OpenRead(mediaFile.FilePath))
+            using (var stream = mediaFile.GetStream())
             {
                 var hash = hashAlgDictionary[Algorithm].ComputeHash(stream);
                 string outString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
