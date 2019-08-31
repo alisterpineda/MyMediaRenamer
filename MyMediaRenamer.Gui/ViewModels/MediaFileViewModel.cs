@@ -33,7 +33,7 @@ namespace MyMediaRenamer.Gui.ViewModels
                 switch (Status)
                 {
                     case MediaFileStatus.Normal:
-                        return "\uf067";
+                        return "";
                     case MediaFileStatus.InProgress:
                         return "\uf110";
                     case MediaFileStatus.Done:
