@@ -19,19 +19,45 @@ namespace MyMediaRenamer.Core
     {
         #region Members
 
+        private string _initialFilePath;
+        private string _filePath;
         private MediaFileStatus _status;
+        
         #endregion
+
         #region Constructors
 
         public MediaFile(string filePath)
         {
-            FilePath = filePath;
+            InitialFilePath = filePath;
         }
         #endregion
 
         #region Properties
 
-        public string FilePath { get; }
+        public string InitialFilePath
+        {
+            get => _initialFilePath;
+            private set
+            {
+                _initialFilePath = value;
+                FilePath = InitialFilePath;
+            }
+        }
+
+        public string FilePath
+        {
+            get => _filePath;
+            private set
+            {
+                if (value == _filePath)
+                    return;
+
+                _filePath = value;
+                OnPropertyChanged(nameof(FilePath));
+                OnPropertyChanged(nameof(FileName));
+            }
+        }
 
         public string FileName => Path.GetFileName(FilePath);
 
