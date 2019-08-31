@@ -6,7 +6,7 @@ namespace MyMediaRenamer.Tests
 {
     public abstract class BaseTestFixture
     {
-        protected static readonly MediaRenamer MediaRenamer = new MediaRenamer();
+        protected static readonly MediaRenamer TestMediaRenamer = new MediaRenamer();
         protected static string TestDataFolderName = "Test Data";
 
         #region Android
@@ -56,11 +56,11 @@ namespace MyMediaRenamer.Tests
 
         }
 
-        #endregion
-
         protected string GetTestDataFilePath(string fileName)
         {
             return Path.Combine(TestDataDirectory, fileName);
         }
+
+        #endregion
     }
 }

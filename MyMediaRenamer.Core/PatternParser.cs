@@ -14,16 +14,16 @@ namespace MyMediaRenamer.Core
         private const string missingTokenCloser = "Missing closing '>'";
 
         private static readonly Regex _regexCustomToken = new Regex("^(.*):(.*)");
-        private static readonly Dictionary<string, Func<string, MediaRenamer, BaseFilePathTag>> FilePathTagLookup = new Dictionary<string, Func<string, MediaRenamer, BaseFilePathTag>>
+        private static readonly Dictionary<string, Func<string, BaseFilePathTag>> FilePathTagLookup = new Dictionary<string, Func<string, BaseFilePathTag>>
         {
-            {"hash", (tagOptionsString, mediaRenamer) => new HashFilePathTag(tagOptionsString, mediaRenamer) }
+            {"hash", (tagOptionsString) => new HashFilePathTag(tagOptionsString) }
         };
 
         #endregion
 
         #region Methods
 
-        public static List<BaseFilePathTag> Parse(string pattern, MediaRenamer mediaRenamer = null)
+        public static List<BaseFilePathTag> Parse(string pattern)
         {
             List<BaseFilePathTag> tags = new List<BaseFilePathTag>();
             StringBuilder buffer = new StringBuilder();
@@ -39,7 +39,7 @@ namespace MyMediaRenamer.Core
                     if (pattern[i] == '>')
                     {
                         tagMode = false;
-                        tags.Add(GetFilePathTag(buffer.ToString(), mediaRenamer));
+                        tags.Add(GetFilePathTag(buffer.ToString()));
                         buffer.Clear();
 
                     }
@@ -58,7 +58,7 @@ namespace MyMediaRenamer.Core
                         tagMode = true;
 
                         if (buffer.Length > 0)
-                            tags.Add(new TextFilePathTag(parent: mediaRenamer){Text = buffer.ToString()});
+                            tags.Add(new TextFilePathTag{Text = buffer.ToString()});
                         buffer.Clear();
                     }
                     else if (pattern[i] == '>')
@@ -69,7 +69,7 @@ namespace MyMediaRenamer.Core
             }
 
             if (buffer.Length > 0)
-                tags.Add(new TextFilePathTag(parent: mediaRenamer){Text = buffer.ToString()});
+                tags.Add(new TextFilePathTag{Text = buffer.ToString()});
 
             return tags;
         }
@@ -88,7 +88,7 @@ namespace MyMediaRenamer.Core
 
             try
             {
-                return FilePathTagLookup[tagType](tagOptionsString, mediaRenamer);
+                return FilePathTagLookup[tagType](tagOptionsString);
             }
             catch (KeyNotFoundException)
             {

@@ -1,6 +1,6 @@
 ﻿using MyMediaRenamer.Core;
 
-namespace MyMediaRenamer.Gui
+namespace MyMediaRenamer.Gui.ViewModels
 {
     public class MediaFileViewModel : BaseViewModel
     {
@@ -54,7 +54,10 @@ namespace MyMediaRenamer.Gui
         private void MediaFile_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Status")
+            {
                 OnPropertyChanged(nameof(Status));
+                OnPropertyChanged(nameof(StatusIcon));
+            }
         }
         #endregion
     }

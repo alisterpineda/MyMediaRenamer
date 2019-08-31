@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using MyMediaRenamer.Gui.Annotations;
 
-namespace MyMediaRenamer.Gui
+namespace MyMediaRenamer.Gui.ViewModels
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {

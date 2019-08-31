@@ -21,7 +21,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
             MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(fileName));
             HashFilePathTag testTag = new HashFilePathTag(tagOptionsString);
 
-            string actualString = testTag.GetString(testMediaFile);
+            string actualString = testTag.GetString(TestMediaRenamer, testMediaFile);
 
             Assert.AreEqual(expectedString, actualString);
         }

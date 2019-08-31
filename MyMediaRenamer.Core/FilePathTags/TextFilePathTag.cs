@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace MyMediaRenamer.Core.FilePathTags
+﻿namespace MyMediaRenamer.Core.FilePathTags
 {
     public class TextFilePathTag : BaseFilePathTag
     {
         #region Constructors
 
-        public TextFilePathTag(string tagOptionsString = null, MediaRenamer parent = null) : base(tagOptionsString, parent)
+        public TextFilePathTag(string tagOptionsString = null) : base(tagOptionsString)
         {
         }
 
@@ -30,7 +28,12 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         public override int GetHashCode()
         {
-            throw new NotImplementedException();
+            unchecked
+            {
+                int hash = base.GetHashCode();
+                hash = hash * 13 + Text.GetHashCode();
+                return hash;
+            }
         }
 
         public override string ToString()
@@ -38,7 +41,7 @@ namespace MyMediaRenamer.Core.FilePathTags
             return $"Text : '{Text}'";
         }
 
-        protected override string GenerateString(MediaFile mediaFile)
+        protected override string GenerateString(MediaRenamer mediaRenamer, MediaFile mediaFile)
         {
             return Text;
         }

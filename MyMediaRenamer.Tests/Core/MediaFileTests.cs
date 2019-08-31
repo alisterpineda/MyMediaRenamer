@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
-using System.Text;
 using MyMediaRenamer.Core;
 using NUnit.Framework;
 
@@ -44,6 +42,14 @@ namespace MyMediaRenamer.Tests.Core
                 }),
                 @"C:\image.jpg",
                 @"C:\image (10).jpg"
+            },
+            new object[] {
+                new MockFileSystem(new Dictionary<string, MockFileData>
+                {
+                    {@"C:\some\directory\path\image.jpg", new MockFileData("") }
+                }),
+                @"C:\some\directory\path\image.jpg",
+                @"C:\some\directory\path\image (1).jpg"
             }
         };
 

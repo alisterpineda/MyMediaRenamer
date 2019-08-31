@@ -9,7 +9,7 @@ using Microsoft.Win32;
 using MyMediaRenamer.Core;
 using MyMediaRenamer.Core.FilePathTags;
 
-namespace MyMediaRenamer.Gui
+namespace MyMediaRenamer.Gui.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
@@ -17,6 +17,7 @@ namespace MyMediaRenamer.Gui
 
         private string _pattern;
         private string _patternErrorMessage;
+        private List<BaseFilePathTag> _tags;
         private int _selectedMediaFileIndex;
         private MediaFileViewModel _selectedMediaFileItem;
 
@@ -30,6 +31,7 @@ namespace MyMediaRenamer.Gui
             RemoveMediaFilesCommand = new RelayCommand(x => DoRemoveMediaFiles(x), x => CanRemoveMediaFiles());
             MoveMediaFileUpCommand = new RelayCommand(x => DoMoveMediaFileUp(), x => CanMoveMediaFileUp());
             MoveMediaFileDownCommand = new RelayCommand(x => DoMoveMediaFileDown(), x => CanMoveMediaFileDown());
+            StartRenamingCommand = new RelayCommand(x => DoStartRenaming(), x => CanStartRenaming());
         }
 
         #endregion
@@ -53,8 +55,12 @@ namespace MyMediaRenamer.Gui
                 }
                 catch (Exception e)
                 {
+                    Tags = null;
                     PatternErrorMessage = e.Message;
                 }
+
+                // Invalidate all Command bindings so that the CanExecute() method for the renaming Command is immediately called
+                CommandManager.InvalidateRequerySuggested();
 
                 OnPropertyChanged(nameof(Pattern));
 
@@ -77,7 +83,18 @@ namespace MyMediaRenamer.Gui
 
         public bool HasPatternErrorMessage => !string.IsNullOrEmpty(PatternErrorMessage);
 
-        public List<BaseFilePathTag> Tags { get; private set; }
+        public List<BaseFilePathTag> Tags
+        {
+            get => _tags;
+            private set
+            {
+                if (value == _tags)
+                    return;
+
+                _tags = value;
+                OnPropertyChanged(nameof(Tags));
+            }
+        }
 
         public ObservableCollection<MediaFileViewModel> MediaFiles { get; } = new ObservableCollection<MediaFileViewModel>();
 
@@ -112,13 +129,14 @@ namespace MyMediaRenamer.Gui
         public ICommand RemoveMediaFilesCommand { get; }
         public ICommand MoveMediaFileUpCommand { get; }
         public ICommand MoveMediaFileDownCommand { get; }
+        public ICommand StartRenamingCommand { get; }
         #endregion
 
         #endregion
 
         #region Methods
 
-        private void AddMediaFiles(string[] filePaths)
+        public void AddMediaFiles(string[] filePaths)
         {
             foreach (string filePath in filePaths)
             {
@@ -177,6 +195,24 @@ namespace MyMediaRenamer.Gui
         private void DoMoveMediaFileDown()
         {
             MediaFiles.Move(SelectedMediaFileIndex, SelectedMediaFileIndex + 1);
+        }
+
+        private bool CanStartRenaming()
+        {
+            return MediaFiles.Count > 0 && Tags != null && Tags.Count > 0;
+        }
+
+        private void DoStartRenaming()
+        {
+            MediaRenamer mediaRenamer = new MediaRenamer();
+
+            List<MediaFile> mediaFiles = new List<MediaFile>();
+            foreach (var mediaFileViewModel in MediaFiles)
+            {
+                mediaFiles.Add(mediaFileViewModel.MediaFile);
+            }
+
+            mediaRenamer.Execute(mediaFiles, Tags);
         }
 
         #endregion

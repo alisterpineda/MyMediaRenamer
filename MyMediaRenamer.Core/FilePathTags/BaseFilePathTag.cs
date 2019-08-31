@@ -9,10 +9,8 @@ namespace MyMediaRenamer.Core.FilePathTags
     {
         #region Constructors
 
-        protected BaseFilePathTag(string tagOptionsString = null, MediaRenamer parent = null)
+        protected BaseFilePathTag(string tagOptionsString = null)
         {
-            Parent = parent;
-
             foreach (var option in ParseTagOptionsString(tagOptionsString))
             {
                 PropertyInfo property = this.GetType().GetProperty(option.Key, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
@@ -50,8 +48,6 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         #region Properties
 
-        protected MediaRenamer Parent { get; }
-
         public int MaxLength { get; set; }
 
         #endregion
@@ -59,13 +55,22 @@ namespace MyMediaRenamer.Core.FilePathTags
         #region Methods
 
         public abstract override bool Equals(object obj);
-        public abstract override int GetHashCode();
         public abstract override string ToString();
-        protected abstract string GenerateString(MediaFile mediaFile);
+        protected abstract string GenerateString(MediaRenamer mediaRenamer,  MediaFile mediaFile);
 
-        public string GetString(MediaFile mediaFile)
+        public override int GetHashCode()
         {
-            string generatedString = GenerateString(mediaFile);
+            unchecked
+            {
+                int hash = 7;
+                hash = hash * 13 + MaxLength.GetHashCode();
+                return hash;
+            }
+        }
+
+        public string GetString(MediaRenamer mediaRenamer, MediaFile mediaFile)
+        {
+            string generatedString = GenerateString(mediaRenamer, mediaFile);
 
             return generatedString;
         }

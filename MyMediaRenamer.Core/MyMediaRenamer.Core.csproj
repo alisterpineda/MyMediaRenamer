@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="MetadataExtractor" Version="2.1.0" />
-    <PackageReference Include="System.IO.Abstractions" Version="6.0.21" />
+    <PackageReference Include="System.IO.Abstractions" Version="6.0.23" />
   </ItemGroup>
 
 </Project>

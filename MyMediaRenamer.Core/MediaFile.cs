@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.IO.Abstractions;
 using System.Runtime.CompilerServices;
@@ -59,6 +60,7 @@ namespace MyMediaRenamer.Core
             }
         }
 
+        public string FileDirectory => Path.GetDirectoryName(FilePath);
         public string FileName => Path.GetFileName(FilePath);
 
         public IFileSystem FileSystem { get; set; } = new FileSystem();
@@ -84,13 +86,24 @@ namespace MyMediaRenamer.Core
             string target = newFilePath;
             int i = 0;
 
-            while (FileSystem.File.Exists(target))
+            try
             {
-                i++;
-                target = Path.GetFileNameWithoutExtension(newFilePath) + $" ({i})" + Path.GetExtension(newFilePath);
-            }
+                Status = MediaFileStatus.InProgress;
 
-            FileSystem.File.Move(FilePath, target);
+                while (FileSystem.File.Exists(target))
+                {
+                    i++;
+                    target = Path.Combine( Path.GetDirectoryName(newFilePath), Path.GetFileNameWithoutExtension(newFilePath) + $" ({i})" + Path.GetExtension(newFilePath));
+                }
+
+                FileSystem.File.Move(FilePath, target);
+
+                Status = MediaFileStatus.Done;
+            }
+            catch (Exception)
+            {
+                Status = MediaFileStatus.Error;
+            }
         }
 
         public Stream GetStream()
