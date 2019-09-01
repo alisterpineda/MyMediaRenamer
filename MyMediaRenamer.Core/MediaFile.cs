@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.IO.Abstractions;
 using System.Runtime.CompilerServices;
+using MetadataExtractor;
+using MetadataExtractor.Util;
 using MyMediaRenamer.Core.Annotations;
+using Directory = MetadataExtractor.Directory;
 
 namespace MyMediaRenamer.Core
 {
@@ -22,6 +26,8 @@ namespace MyMediaRenamer.Core
 
         private string _initialFilePath;
         private string _filePath;
+        private FileType? _fileType;
+        private IReadOnlyList<Directory> _metadataDirectories;
         private MediaFileStatus _status;
         
         #endregion
@@ -63,7 +69,36 @@ namespace MyMediaRenamer.Core
         public string FileDirectory => Path.GetDirectoryName(FilePath);
         public string FileName => Path.GetFileName(FilePath);
 
+        public FileType FileType
+        {
+            get
+            {
+                if (!_fileType.HasValue)
+                    _fileType = FileTypeDetector.DetectFileType(GetStream());
+                return _fileType.GetValueOrDefault();
+            }
+        }
+
         public IFileSystem FileSystem { get; set; } = new FileSystem();
+
+        public IReadOnlyList<Directory> MetadataDirectories
+        {
+            get
+            {
+                if (_metadataDirectories == null)
+                    MetadataDirectories = ImageMetadataReader.ReadMetadata(GetStream());
+
+                return _metadataDirectories;
+            }
+            set
+            {
+                if (value == _metadataDirectories)
+                    return;
+
+                _metadataDirectories = value;
+                OnPropertyChanged(nameof(MetadataDirectories));
+            }
+        }
 
         public MediaFileStatus Status
         {

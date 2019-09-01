@@ -20,7 +20,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
         [TestCaseSource(nameof(GetStringCases))]
         public void GetStringTest(string tagOptionsString, string sourceString, string expectedString)
         {
-            MediaFile testMediaFile = new MediaFile(string.Empty);
+            MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(IosPhoto));
             TextFilePathTag testTag = new TextFilePathTag(tagOptionsString){Text=sourceString};
 
             string actualString = testTag.GetString(TestMediaRenamer, testMediaFile);
