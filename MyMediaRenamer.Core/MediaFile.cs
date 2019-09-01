@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.IO.Abstractions;
 using System.Runtime.CompilerServices;
+using System.Text;
 using MetadataExtractor;
 using MetadataExtractor.Util;
 using MyMediaRenamer.Core.Annotations;
@@ -29,6 +30,7 @@ namespace MyMediaRenamer.Core
         private FileType? _fileType;
         private IReadOnlyList<Directory> _metadataDirectories;
         private MediaFileStatus _status;
+        private string _errorMessage;
         
         #endregion
 
@@ -74,7 +76,11 @@ namespace MyMediaRenamer.Core
             get
             {
                 if (!_fileType.HasValue)
-                    _fileType = FileTypeDetector.DetectFileType(GetStream());
+                {
+                    using (var stream = GetStream())
+                        _fileType = FileTypeDetector.DetectFileType(stream);
+                }
+
                 return _fileType.GetValueOrDefault();
             }
         }
@@ -86,7 +92,10 @@ namespace MyMediaRenamer.Core
             get
             {
                 if (_metadataDirectories == null)
-                    MetadataDirectories = ImageMetadataReader.ReadMetadata(GetStream());
+                {
+                    using (var stream = GetStream())
+                        MetadataDirectories = ImageMetadataReader.ReadMetadata(stream);
+                }
 
                 return _metadataDirectories;
             }
@@ -112,6 +121,22 @@ namespace MyMediaRenamer.Core
                 OnPropertyChanged(nameof(Status));
             }
         }
+
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                if (value == _errorMessage)
+                    return;
+
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+
+
         #endregion
 
         #region Methods
@@ -135,9 +160,10 @@ namespace MyMediaRenamer.Core
 
                 Status = MediaFileStatus.Done;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Status = MediaFileStatus.Error;
+                ErrorMessage = e.Message;
             }
         }
 

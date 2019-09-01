@@ -1,4 +1,5 @@
-﻿using MyMediaRenamer.Core;
+﻿using System.Text;
+using MyMediaRenamer.Core;
 
 namespace MyMediaRenamer.Gui.ViewModels
 {
@@ -23,6 +24,7 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         public string FilePath => MediaFile.FilePath;
         public string FileName => MediaFile.FileName;
+        public string ErrorMessage => MediaFile.ErrorMessage;
 
         public MediaFileStatus Status => MediaFile.Status;
 
@@ -48,6 +50,20 @@ namespace MyMediaRenamer.Gui.ViewModels
             }
         }
 
+        public string ToolTip
+        {
+            get
+            {
+                StringBuilder toolTip = new StringBuilder();
+
+                if (Status == MediaFileStatus.Error && !string.IsNullOrEmpty(ErrorMessage))
+                    toolTip.Append($"Error:\n\n{ErrorMessage}\n\n---\n\n");
+
+                toolTip.Append(FilePath);
+                return toolTip.ToString();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -57,6 +73,7 @@ namespace MyMediaRenamer.Gui.ViewModels
             {
                 OnPropertyChanged(nameof(Status));
                 OnPropertyChanged(nameof(StatusIcon));
+                OnPropertyChanged(nameof(ToolTip));
             }
         }
         #endregion

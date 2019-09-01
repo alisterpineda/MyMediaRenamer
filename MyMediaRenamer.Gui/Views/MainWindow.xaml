@@ -89,7 +89,7 @@
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="ToolTip" Value="{Binding FilePath}"></Setter>
+                            <Setter Property="ToolTip" Value="{Binding ToolTip}"/>
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
