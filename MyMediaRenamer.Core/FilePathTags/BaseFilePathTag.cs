@@ -29,7 +29,7 @@ namespace MyMediaRenamer.Core.FilePathTags
                     else
                         throw new InvalidOperationException();
                 }
-                else if (property.PropertyType == typeof(int))
+                else if (property.PropertyType == typeof(int?))
                 {
                     property.SetValue(this, int.Parse(option.Value));
                 }
@@ -48,7 +48,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         #region Properties
 
-        public int MaxLength { get; set; }
+        public int? MaxLength { get; set; } = null;
 
         #endregion
 
@@ -71,6 +71,9 @@ namespace MyMediaRenamer.Core.FilePathTags
         public string GetString(MediaRenamer mediaRenamer, MediaFile mediaFile)
         {
             string generatedString = GenerateString(mediaRenamer, mediaFile);
+
+            if (MaxLength.HasValue)
+                generatedString = generatedString.Substring(0, MaxLength.GetValueOrDefault());
 
             return generatedString;
         }
