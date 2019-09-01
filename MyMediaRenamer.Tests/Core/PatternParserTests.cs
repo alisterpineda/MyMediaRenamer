@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MyMediaRenamer.Core;
 using MyMediaRenamer.Core.FilePathTags;
 using NUnit.Framework;
@@ -31,6 +32,18 @@ namespace MyMediaRenamer.Tests.Core
             {
                 Assert.AreEqual(expectedFilePathTags[i], actualFilePathTags[i]);
             }
+        }
+
+
+        public static object[] InvalidPatternCases =
+        {
+            "<", ">", "<>", "<hash>>", "<<hash>", "<<>>", "<invalidToken>"
+        };
+
+        [TestCaseSource(nameof(InvalidPatternCases))]
+        public void InvalidPatternTest(string pattern)
+        {
+            Assert.That(() => PatternParser.Parse(pattern), Throws.Exception);
         }
     }
 }
