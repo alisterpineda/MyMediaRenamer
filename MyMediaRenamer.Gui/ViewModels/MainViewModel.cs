@@ -47,22 +47,9 @@ namespace MyMediaRenamer.Gui.ViewModels
                     return;
 
                 _pattern = value;
-
-                try
-                {
-                    Tags = PatternParser.Parse(Pattern);
-                    PatternErrorMessage = string.Empty;
-                }
-                catch (Exception e)
-                {
-                    Tags = null;
-                    PatternErrorMessage = e.Message;
-                }
-
-                // Invalidate all Command bindings so that the CanExecute() method for the renaming Command is immediately called
-                CommandManager.InvalidateRequerySuggested();
-
                 OnPropertyChanged(nameof(Pattern));
+
+                PatternErrorMessage = string.Empty;
 
             }
         }
@@ -199,20 +186,33 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         private bool CanStartRenaming()
         {
-            return MediaFiles.Count > 0 && Tags != null && Tags.Count > 0;
+            return MediaFiles.Count > 0;
         }
 
         private void DoStartRenaming()
         {
-            MediaRenamer mediaRenamer = new MediaRenamer();
-
-            List<MediaFile> mediaFiles = new List<MediaFile>();
-            foreach (var mediaFileViewModel in MediaFiles)
+            try
             {
-                mediaFiles.Add(mediaFileViewModel.MediaFile);
+                Tags = PatternParser.Parse(Pattern);
+                if (Tags.Count == 0)
+                    return;
+
+                MediaRenamer mediaRenamer = new MediaRenamer();
+                List<MediaFile> mediaFiles = new List<MediaFile>();
+
+                foreach (var mediaFileViewModel in MediaFiles)
+                {
+                    mediaFiles.Add(mediaFileViewModel.MediaFile);
+                }
+
+                mediaRenamer.Execute(mediaFiles, Tags);
+            }
+            catch (Exception e)
+            {
+                PatternErrorMessage = e.Message;
             }
 
-            mediaRenamer.Execute(mediaFiles, Tags);
+
         }
 
         #endregion
