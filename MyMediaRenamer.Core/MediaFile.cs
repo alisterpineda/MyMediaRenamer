@@ -49,7 +49,12 @@ namespace MyMediaRenamer.Core
             get => _initialFilePath;
             private set
             {
+                if (value == _initialFilePath)
+                    return;
+
                 _initialFilePath = value;
+                OnPropertyChanged(nameof(InitialFilePath));
+
                 FilePath = InitialFilePath;
             }
         }
@@ -64,6 +69,7 @@ namespace MyMediaRenamer.Core
 
                 _filePath = value;
                 OnPropertyChanged(nameof(FilePath));
+                OnPropertyChanged(nameof(FileDirectory));
                 OnPropertyChanged(nameof(FileName));
             }
         }
@@ -158,6 +164,7 @@ namespace MyMediaRenamer.Core
 
                 FileSystem.File.Move(FilePath, target);
 
+                FilePath = target;
                 Status = MediaFileStatus.Done;
             }
             catch (Exception e)
@@ -165,6 +172,12 @@ namespace MyMediaRenamer.Core
                 Status = MediaFileStatus.Error;
                 ErrorMessage = e.Message;
             }
+        }
+
+        public void Reload()
+        {
+            InitialFilePath = FilePath;
+            Status = MediaFileStatus.Normal;
         }
 
         public Stream GetStream()

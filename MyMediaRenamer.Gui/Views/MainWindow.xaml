@@ -63,6 +63,11 @@
                             ToolTip="Move Down"
                             Command="{Binding MoveMediaFileDownCommand}"
                             Style="{StaticResource IconOnlyButton}"/>
+                    <Button Content="&#xf2f9;"
+                            ToolTip="Reload"
+                            Command="{Binding ReloadMediaFilesCommand}"
+                            CommandParameter="{Binding SelectedItems, ElementName=MediaFilesListView}"
+                            Style="{StaticResource IconOnlyButton}"/>
                 </StackPanel>
                 <ListView x:Name="MediaFilesListView"
                           ItemsSource="{Binding MediaFiles}"

@@ -22,6 +22,7 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         public  MediaFile MediaFile { get; }
 
+        public string InitialFilePath => MediaFile.InitialFilePath;
         public string FilePath => MediaFile.FilePath;
         public string FileName => MediaFile.FileName;
         public string ErrorMessage => MediaFile.ErrorMessage;
@@ -56,7 +57,9 @@ namespace MyMediaRenamer.Gui.ViewModels
             {
                 StringBuilder toolTip = new StringBuilder();
 
-                if (Status == MediaFileStatus.Error && !string.IsNullOrEmpty(ErrorMessage))
+                if (Status == MediaFileStatus.Done)
+                    toolTip.Append($"Initial File Path:\n{InitialFilePath}\n\n---\n\n");
+                else if (Status == MediaFileStatus.Error && !string.IsNullOrEmpty(ErrorMessage))
                     toolTip.Append($"Error:\n\n{ErrorMessage}\n\n---\n\n");
 
                 toolTip.Append(FilePath);
@@ -69,7 +72,12 @@ namespace MyMediaRenamer.Gui.ViewModels
         #region Methods
         private void MediaFile_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Status")
+            if (e.PropertyName == nameof(MediaFile.FilePath))
+            {
+                OnPropertyChanged(nameof(FilePath));
+                OnPropertyChanged(nameof(FileName));
+            }
+            else if (e.PropertyName == nameof(MediaFile.Status))
             {
                 OnPropertyChanged(nameof(Status));
                 OnPropertyChanged(nameof(StatusIcon));

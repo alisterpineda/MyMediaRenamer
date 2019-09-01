@@ -31,6 +31,7 @@ namespace MyMediaRenamer.Gui.ViewModels
             RemoveMediaFilesCommand = new RelayCommand(x => DoRemoveMediaFiles(x), x => CanRemoveMediaFiles());
             MoveMediaFileUpCommand = new RelayCommand(x => DoMoveMediaFileUp(), x => CanMoveMediaFileUp());
             MoveMediaFileDownCommand = new RelayCommand(x => DoMoveMediaFileDown(), x => CanMoveMediaFileDown());
+            ReloadMediaFilesCommand = new RelayCommand(x => DoReloadMediaFiles(x), x => CanReloadMediaFiles());
             StartRenamingCommand = new RelayCommand(x => DoStartRenaming(), x => CanStartRenaming());
         }
 
@@ -116,6 +117,7 @@ namespace MyMediaRenamer.Gui.ViewModels
         public ICommand RemoveMediaFilesCommand { get; }
         public ICommand MoveMediaFileUpCommand { get; }
         public ICommand MoveMediaFileDownCommand { get; }
+        public ICommand ReloadMediaFilesCommand { get; }
         public ICommand StartRenamingCommand { get; }
         #endregion
 
@@ -184,6 +186,19 @@ namespace MyMediaRenamer.Gui.ViewModels
             MediaFiles.Move(SelectedMediaFileIndex, SelectedMediaFileIndex + 1);
         }
 
+        private bool CanReloadMediaFiles()
+        {
+            return SelectedMediaFileIndex > -1;
+        }
+
+        private void DoReloadMediaFiles(object param)
+        {
+            List<MediaFileViewModel> mediaFilesToReload = ((IList)param).Cast<MediaFileViewModel>().ToList();
+
+            foreach (var mediaFile in mediaFilesToReload)
+                mediaFile.MediaFile.Reload();
+        }
+
         private bool CanStartRenaming()
         {
             return MediaFiles.Count > 0;
@@ -200,12 +215,7 @@ namespace MyMediaRenamer.Gui.ViewModels
                 MediaRenamer mediaRenamer = new MediaRenamer();
                 List<MediaFile> mediaFiles = new List<MediaFile>();
 
-                foreach (var mediaFileViewModel in MediaFiles)
-                {
-                    mediaFiles.Add(mediaFileViewModel.MediaFile);
-                }
-
-                mediaRenamer.Execute(mediaFiles, Tags);
+                mediaRenamer.Execute(MediaFiles.Where(x => x.Status == MediaFileStatus.Normal).Select(x => x.MediaFile).ToList(), Tags);
             }
             catch (Exception e)
             {
