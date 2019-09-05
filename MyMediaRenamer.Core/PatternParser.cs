@@ -17,7 +17,8 @@ namespace MyMediaRenamer.Core
         private static readonly Dictionary<string, Func<string, BaseTag>> FilePathTagLookup = new Dictionary<string, Func<string, BaseTag>>
         {
             {"datetime", (tagOptionsString) => new DateTimeTag(tagOptionsString) },
-            {"hash", (tagOptionsString) => new HashTag(tagOptionsString) }
+            {"hash", (tagOptionsString) => new HashTag(tagOptionsString) },
+            {"name", (tagOptionsString) => new NameTag(tagOptionsString) }
         };
 
         #endregion

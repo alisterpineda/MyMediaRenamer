@@ -76,6 +76,8 @@ namespace MyMediaRenamer.Core
 
         public string FileDirectory => Path.GetDirectoryName(FilePath);
         public string FileName => Path.GetFileName(FilePath);
+        public string FileNameWithoutExtension => Path.GetFileNameWithoutExtension(FilePath);
+        public string FileExtension => Path.GetExtension(FilePath);
 
         public FileType FileType
         {
