@@ -17,7 +17,7 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         private string _pattern;
         private string _patternErrorMessage;
-        private List<BaseFilePathTag> _tags;
+        private List<BaseTag> _tags;
         private int _selectedMediaFileIndex;
         private MediaFileViewModel _selectedMediaFileItem;
 
@@ -71,7 +71,7 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         public bool HasPatternErrorMessage => !string.IsNullOrEmpty(PatternErrorMessage);
 
-        public List<BaseFilePathTag> Tags
+        public List<BaseTag> Tags
         {
             get => _tags;
             private set

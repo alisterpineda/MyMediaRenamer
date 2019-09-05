@@ -13,7 +13,7 @@ namespace MyMediaRenamer.Core.FilePathTags
         SHA512
     }
 
-    public class HashFilePathTag : BaseFilePathTag
+    public class HashTag : BaseTag
     {
         #region Members
 
@@ -29,7 +29,7 @@ namespace MyMediaRenamer.Core.FilePathTags
         #endregion
 
         #region Constructors
-        public HashFilePathTag(string tagOptionsString = null) : base(tagOptionsString)
+        public HashTag(string tagOptionsString = null) : base(tagOptionsString)
         {
         }
         #endregion
@@ -43,7 +43,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         public override bool Equals(object obj)
         {
-            HashFilePathTag other = obj as HashFilePathTag;
+            HashTag other = obj as HashTag;
             if (other == null)
                 return false;
             return Algorithm.Equals(other.Algorithm);

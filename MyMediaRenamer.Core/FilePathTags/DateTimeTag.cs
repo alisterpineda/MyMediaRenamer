@@ -9,14 +9,14 @@ using MetadataExtractor.Util;
 
 namespace MyMediaRenamer.Core.FilePathTags
 {
-    public sealed class DateTimeFilePathTag : BaseFilePathTag
+    public sealed class DateTimeTag : BaseTag
     {
         #region Members
         #endregion
 
         #region Constructors
 
-        public DateTimeFilePathTag(string tagOptionsString = null) : base(tagOptionsString)
+        public DateTimeTag(string tagOptionsString = null) : base(tagOptionsString)
         {
 
         }
@@ -33,7 +33,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         public override bool Equals(object obj)
         {
-            DateTimeFilePathTag other = obj as DateTimeFilePathTag;
+            DateTimeTag other = obj as DateTimeTag;
             if (other == null)
                 return false;
             return Format.Equals(other.Format);

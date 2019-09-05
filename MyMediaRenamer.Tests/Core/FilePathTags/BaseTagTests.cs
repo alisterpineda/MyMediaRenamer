@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace MyMediaRenamer.Tests.Core.FilePathTags
 {
-    public class BaseFilePathTagTests : BaseTestFixture
+    public class BaseTagTests : BaseTestFixture
     {
         private static string testString = "abcdefghijklmnopqrstuvwxyz";
 
@@ -21,7 +21,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
         public void GetStringTest(string tagOptionsString, string sourceString, string expectedString)
         {
             MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(IosPhoto));
-            TextFilePathTag testTag = new TextFilePathTag(tagOptionsString){Text=sourceString};
+            TextTag testTag = new TextTag(tagOptionsString){Text=sourceString};
 
             string actualString = testTag.GetString(TestMediaRenamer, testMediaFile);
 

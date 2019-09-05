@@ -10,21 +10,21 @@ namespace MyMediaRenamer.Tests.Core
     {
         public static object[] NTagsCases =
         {
-            new object[] {"", new List<BaseFilePathTag>() },
-            new object[] {"abc", new List<BaseFilePathTag>
+            new object[] {"", new List<BaseTag>() },
+            new object[] {"abc", new List<BaseTag>
             {
-                new TextFilePathTag(){Text = "abc"}
+                new TextTag(){Text = "abc"}
             } },
-            new object[] {"<hash>", new List<BaseFilePathTag>
+            new object[] {"<hash>", new List<BaseTag>
             {
-                new HashFilePathTag()
+                new HashTag()
             } }
         };
 
         [TestCaseSource(nameof(NTagsCases))]
-        public void NTagsTest(string pattern, List<BaseFilePathTag> expectedFilePathTags)
+        public void NTagsTest(string pattern, List<BaseTag> expectedFilePathTags)
         {
-            List<BaseFilePathTag> actualFilePathTags = PatternParser.Parse(pattern);
+            List<BaseTag> actualFilePathTags = PatternParser.Parse(pattern);
 
             Assert.AreEqual(expectedFilePathTags.Count, actualFilePathTags.Count);
 

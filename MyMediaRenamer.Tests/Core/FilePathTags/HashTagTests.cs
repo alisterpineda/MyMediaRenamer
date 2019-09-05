@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace MyMediaRenamer.Tests.Core.FilePathTags
 {
-    public class HashFilePathTagTests : BaseTestFixture
+    public class HashTagTests : BaseTestFixture
     {
         private static object[] GetStringCases =
         {
@@ -19,7 +19,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
         public void GetStringTest(string fileName, string tagOptionsString, string expectedString)
         {
             MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(fileName));
-            HashFilePathTag testTag = new HashFilePathTag(tagOptionsString);
+            HashTag testTag = new HashTag(tagOptionsString);
 
             string actualString = testTag.GetString(TestMediaRenamer, testMediaFile);
 

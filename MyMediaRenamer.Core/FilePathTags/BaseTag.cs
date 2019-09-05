@@ -5,11 +5,11 @@ using System.Reflection;
 
 namespace MyMediaRenamer.Core.FilePathTags
 {
-    public abstract class BaseFilePathTag
+    public abstract class BaseTag
     {
         #region Constructors
 
-        protected BaseFilePathTag(string tagOptionsString = null)
+        protected BaseTag(string tagOptionsString = null)
         {
             foreach (var option in ParseTagOptionsString(tagOptionsString))
             {

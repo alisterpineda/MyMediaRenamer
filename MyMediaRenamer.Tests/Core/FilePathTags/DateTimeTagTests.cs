@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace MyMediaRenamer.Tests.Core.FilePathTags
 {
-    public class DateTimeFilePathTagTests : BaseTestFixture
+    public class DateTimeTagTests : BaseTestFixture
     {
         private static object[] GetStringCases =
         {
@@ -22,7 +22,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
         public void GetStringTest(string fileName, string tokenOptions, string expectedString)
         {
             MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(fileName));
-            DateTimeFilePathTag testDateTimeToken = new DateTimeFilePathTag(tokenOptions);
+            DateTimeTag testDateTimeToken = new DateTimeTag(tokenOptions);
 
             string actualString = testDateTimeToken.GetString(TestMediaRenamer, testMediaFile);
             Assert.AreEqual(expectedString, actualString);

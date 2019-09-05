@@ -1,10 +1,10 @@
 ﻿namespace MyMediaRenamer.Core.FilePathTags
 {
-    public class TextFilePathTag : BaseFilePathTag
+    public class TextTag : BaseTag
     {
         #region Constructors
 
-        public TextFilePathTag(string tagOptionsString = null) : base(tagOptionsString)
+        public TextTag(string tagOptionsString = null) : base(tagOptionsString)
         {
         }
 
@@ -20,7 +20,7 @@
 
         public override bool Equals(object obj)
         {
-            TextFilePathTag other = obj as TextFilePathTag;
+            TextTag other = obj as TextTag;
             if (other == null)
                 return false;
             return Text.Equals(other.Text);

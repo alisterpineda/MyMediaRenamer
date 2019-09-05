@@ -8,7 +8,7 @@ namespace MyMediaRenamer.Core
 {
     public class MediaRenamer
     {
-        public async void Execute(IList<MediaFile> mediaFiles, IList<BaseFilePathTag> filePathTags)
+        public async void Execute(IList<MediaFile> mediaFiles, IList<BaseTag> filePathTags)
         {
             try
             {

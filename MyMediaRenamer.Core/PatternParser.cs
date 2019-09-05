@@ -14,19 +14,19 @@ namespace MyMediaRenamer.Core
         private const string missingTokenCloser = "Missing closing '>'";
 
         private static readonly Regex _regexCustomToken = new Regex("^(.*);(.*)");
-        private static readonly Dictionary<string, Func<string, BaseFilePathTag>> FilePathTagLookup = new Dictionary<string, Func<string, BaseFilePathTag>>
+        private static readonly Dictionary<string, Func<string, BaseTag>> FilePathTagLookup = new Dictionary<string, Func<string, BaseTag>>
         {
-            {"datetime", (tagOptionsString) => new DateTimeFilePathTag(tagOptionsString) },
-            {"hash", (tagOptionsString) => new HashFilePathTag(tagOptionsString) }
+            {"datetime", (tagOptionsString) => new DateTimeTag(tagOptionsString) },
+            {"hash", (tagOptionsString) => new HashTag(tagOptionsString) }
         };
 
         #endregion
 
         #region Methods
 
-        public static List<BaseFilePathTag> Parse(string pattern)
+        public static List<BaseTag> Parse(string pattern)
         {
-            List<BaseFilePathTag> tags = new List<BaseFilePathTag>();
+            List<BaseTag> tags = new List<BaseTag>();
             StringBuilder buffer = new StringBuilder();
             bool tagMode = false;
 
@@ -59,7 +59,7 @@ namespace MyMediaRenamer.Core
                         tagMode = true;
 
                         if (buffer.Length > 0)
-                            tags.Add(new TextFilePathTag{Text = buffer.ToString()});
+                            tags.Add(new TextTag{Text = buffer.ToString()});
                         buffer.Clear();
                     }
                     else if (pattern[i] == '>')
@@ -70,12 +70,12 @@ namespace MyMediaRenamer.Core
             }
 
             if (buffer.Length > 0)
-                tags.Add(new TextFilePathTag{Text = buffer.ToString()});
+                tags.Add(new TextTag{Text = buffer.ToString()});
 
             return tags;
         }
 
-        private static BaseFilePathTag GetFilePathTag(string tagPattern, MediaRenamer mediaRenamer = null)
+        private static BaseTag GetFilePathTag(string tagPattern, MediaRenamer mediaRenamer = null)
         {
             string tagType = tagPattern;
             string tagOptionsString = String.Empty;
