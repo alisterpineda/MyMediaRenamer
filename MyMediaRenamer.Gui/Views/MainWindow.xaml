@@ -22,7 +22,12 @@
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid x:Name="PatternPanel">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="PatternPanel"
+                  Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -42,68 +47,78 @@
                            Visibility="{Binding HasPatternErrorMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Text="{Binding PatternErrorMessage}"/>
             </Grid>
-            <DockPanel x:Name="MediaFilesListPanel"
-                       Grid.Row="1">
-                <StackPanel DockPanel.Dock="Bottom"
-                            Orientation="Horizontal">
-                    <Button Content="&#xf067;"
-                            ToolTip="Add Files..."
-                            Command="{Binding AddMediaFilesCommand}"
-                            Style="{StaticResource IconOnlyButton}"/>
-                    <Button Content="&#xf068;"
-                            ToolTip="Remove Files"
-                            Command="{Binding RemoveMediaFilesCommand}"
-                            CommandParameter="{Binding SelectedItems, ElementName=MediaFilesListView}"
-                            Style="{StaticResource IconOnlyButton}"/>
-                    <Button Content="&#xf062;"
-                            ToolTip="Move Up"
-                            Command="{Binding MoveMediaFileUpCommand}"
-                            Style="{StaticResource IconOnlyButton}"/>
-                    <Button Content="&#xf063;"
-                            ToolTip="Move Down"
-                            Command="{Binding MoveMediaFileDownCommand}"
-                            Style="{StaticResource IconOnlyButton}"/>
-                    <Button Content="&#xf2f9;"
-                            ToolTip="Reload"
-                            Command="{Binding ReloadMediaFilesCommand}"
-                            CommandParameter="{Binding SelectedItems, ElementName=MediaFilesListView}"
-                            Style="{StaticResource IconOnlyButton}"/>
-                </StackPanel>
-                <ListView x:Name="MediaFilesListView"
-                          ItemsSource="{Binding MediaFiles}"
-                          SelectedIndex="{Binding SelectedMediaFileIndex, Mode=OneWayToSource}"
-                          SelectedItem="{Binding SelectedMediaFileItem, Mode=OneWayToSource}"
-                          AllowDrop="True"
-                          Drop="MediaFilesListView_OnDrop">
-                    <ListView.ItemTemplate>
-                        <ItemContainerTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding FileName}"/>
-                                <TextBlock Grid.Column="1"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           FontFamily="{DynamicResource FontAwesome}"
-                                           Text="{Binding StatusIcon}"/>
-                            </Grid>
-                        </ItemContainerTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                            <Setter Property="ToolTip" Value="{Binding ToolTip}"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </DockPanel>
-            <StackPanel x:Name="ActionButtonsPanel" Grid.Row="2">
-                <Button HorizontalAlignment="Right"
-                        Content="Run"
-                        Command="{Binding StartRenamingCommand}"/>
-            </StackPanel>
+            <ListView x:Name="MediaFilesListView"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      ItemsSource="{Binding MediaFiles}"
+                      SelectedIndex="{Binding SelectedMediaFileIndex, Mode=OneWayToSource}"
+                      SelectedItem="{Binding SelectedMediaFileItem, Mode=OneWayToSource}"
+                      AllowDrop="True"
+                      Drop="MediaFilesListView_OnDrop">
+                <ListView.ItemTemplate>
+                    <ItemContainerTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding FileName}"/>
+                            <TextBlock Grid.Column="1"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontFamily="{DynamicResource FontAwesome}"
+                                       Text="{Binding StatusIcon}"/>
+                        </Grid>
+                    </ItemContainerTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="ToolTip" Value="{Binding ToolTip}"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+            <WrapPanel x:Name="MediaFilesActionButtonsPanel"
+                        Grid.Row="2">
+                <Button Content="&#xf067;"
+                        ToolTip="Add Files..."
+                        Command="{Binding AddMediaFilesCommand}"
+                        Style="{StaticResource IconOnlyButton}"/>
+                <Button Content="&#xf068;"
+                        ToolTip="Remove Files"
+                        Command="{Binding RemoveMediaFilesCommand}"
+                        CommandParameter="{Binding SelectedItems, ElementName=MediaFilesListView}"
+                        Style="{StaticResource IconOnlyButton}"/>
+                <Button Content="&#xf062;"
+                        ToolTip="Move Up"
+                        Command="{Binding MoveMediaFileUpCommand}"
+                        Style="{StaticResource IconOnlyButton}"/>
+                <Button Content="&#xf063;"
+                        ToolTip="Move Down"
+                        Command="{Binding MoveMediaFileDownCommand}"
+                        Style="{StaticResource IconOnlyButton}"/>
+                <Button Content="&#xf2f9;"
+                        ToolTip="Reload"
+                        Command="{Binding ReloadMediaFilesCommand}"
+                        CommandParameter="{Binding SelectedItems, ElementName=MediaFilesListView}"
+                        Style="{StaticResource IconOnlyButton}"/>
+            </WrapPanel>
+            <WrapPanel x:Name="MediaRenamerActionButtonsPanel"
+                        Grid.Row="2" Grid.Column="1"
+                        Orientation="Horizontal"
+                        FlowDirection="RightToLeft">
+                
+                <Button Content="&#xf04b;"
+                        ToolTip="Run"
+                        Command="{Binding StartRenamingCommand}"
+                        Style="{StaticResource IconOnlyButton}"/>
+                <Button Content="&#xf04c;"
+                        ToolTip="Pause --NOT IMPLEMENTED--"
+                        Style="{StaticResource IconOnlyButton}"/>
+                <Button Content="&#xf04d;"
+                        ToolTip="Stop --NOT IMPLEMENTED--"
+                        Style="{StaticResource IconOnlyButton}"/>
+            </WrapPanel>
         </Grid>
     </DockPanel>
 </Window>
