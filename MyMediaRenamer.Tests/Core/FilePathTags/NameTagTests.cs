@@ -11,19 +11,18 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
     {
         private static object[] GetStringCases =
         {
-            new object[] {AndroidPhoto, "", @"android_photo" },
-            new object[] {AndroidPhoto, "type=name", @"android_photo" },
-            new object[] {AndroidPhoto, "type=extension", @"jpg" },
-            new object[] {AndroidPhoto, "type=full", @"android_photo.jpg" }
+            new object[] {AndroidPhoto, new NameTag(), @"android_photo" },
+            new object[] {AndroidPhoto, new NameTag{Type=NameTagType.Extension}, @"jpg" },
+            new object[] {AndroidPhoto, new NameTag{Type=NameTagType.Full}, @"android_photo.jpg" }
         };
 
         [TestCaseSource(nameof(GetStringCases))]
-        public void GetStringTest(string fileName, string tokenOptions, string expectedString)
+        public void GetStringTest(string fileName, NameTag testTag, string expectedString)
         {
             MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(fileName));
-            NameTag testTag = new NameTag(tokenOptions);
 
             string actualString = testTag.GetString(TestMediaRenamer, testMediaFile);
+
             Assert.AreEqual(expectedString, actualString);
         }
     }

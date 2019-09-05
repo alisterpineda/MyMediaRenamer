@@ -51,7 +51,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"NameTag :: '{Type}'";
         }
 
         protected override string GenerateString(MediaRenamer mediaRenamer, MediaFile mediaFile)

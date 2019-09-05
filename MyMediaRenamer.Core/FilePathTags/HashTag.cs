@@ -61,7 +61,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"HashTag :: '{Algorithm}'";
         }
 
         protected override string GenerateString(MediaRenamer mediaRenamer, MediaFile mediaFile)

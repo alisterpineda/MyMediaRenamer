@@ -38,7 +38,7 @@
 
         public override string ToString()
         {
-            return $"Text : '{Text}'";
+            return $"Text :: '{Text}'";
         }
 
         protected override string GenerateString(MediaRenamer mediaRenamer, MediaFile mediaFile)

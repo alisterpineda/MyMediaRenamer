@@ -11,18 +11,17 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
     {
         private static object[] GetStringCases =
         {
-            new object[] {AndroidPhoto, "", @"2016-06-17 13:07:00Z" },
-            new object[] {IosPhoto, "", @"2017-08-26 16:00:19Z" },
-            new object[] {IosVideoMp4, "", @"2014-05-24 07:17:35Z"},
-            new object[] {IosVideoMov, "", @"2018-06-15 20:11:45Z"},
-            new object[] {IosPhoto, "format=yyyyMMdd_HHmmss_fff", @"20170826_160019_349" }
+            new object[] {AndroidPhoto, new DateTimeTag(), @"2016-06-17 13:07:00Z" },
+            new object[] {IosPhoto, new DateTimeTag(), @"2017-08-26 16:00:19Z" },
+            new object[] {IosVideoMp4, new DateTimeTag(), @"2014-05-24 07:17:35Z"},
+            new object[] {IosVideoMov, new DateTimeTag(), @"2018-06-15 20:11:45Z"},
+            new object[] {IosPhoto, new DateTimeTag{Format = "yyyyMMdd_HHmmss_fff" }, @"20170826_160019_349" }
         };
 
         [TestCaseSource(nameof(GetStringCases))]
-        public void GetStringTest(string fileName, string tokenOptions, string expectedString)
+        public void GetStringTest(string fileName, DateTimeTag testTag, string expectedString)
         {
             MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(fileName));
-            DateTimeTag testTag = new DateTimeTag(tokenOptions);
 
             string actualString = testTag.GetString(TestMediaRenamer, testMediaFile);
             Assert.AreEqual(expectedString, actualString);
