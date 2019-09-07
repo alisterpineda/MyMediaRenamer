@@ -37,31 +37,16 @@ namespace MyMediaRenamer.Core
 
         public MediaFile(string filePath)
         {
-            InitialFilePath = filePath;
+            FilePath = filePath;
         }
         #endregion
 
         #region Properties
 
-        public string InitialFilePath
-        {
-            get => _initialFilePath;
-            private set
-            {
-                if (value == _initialFilePath)
-                    return;
-
-                _initialFilePath = value;
-                OnPropertyChanged(nameof(InitialFilePath));
-
-                FilePath = InitialFilePath;
-            }
-        }
-
         public string FilePath
         {
             get => _filePath;
-            private set
+            set
             {
                 if (value == _filePath)
                     return;
@@ -173,12 +158,6 @@ namespace MyMediaRenamer.Core
                 Status = MediaFileStatus.Error;
                 ErrorMessage = e.Message;
             }
-        }
-
-        public void Reload()
-        {
-            InitialFilePath = FilePath;
-            Status = MediaFileStatus.Normal;
         }
 
         public Stream GetStream()

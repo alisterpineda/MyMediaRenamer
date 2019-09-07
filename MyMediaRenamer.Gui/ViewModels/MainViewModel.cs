@@ -196,7 +196,7 @@ namespace MyMediaRenamer.Gui.ViewModels
             List<MediaFileViewModel> mediaFilesToReload = ((IList)param).Cast<MediaFileViewModel>().ToList();
 
             foreach (var mediaFile in mediaFilesToReload)
-                mediaFile.MediaFile.Reload();
+                mediaFile.Reload();
         }
 
         private bool CanStartRenaming()

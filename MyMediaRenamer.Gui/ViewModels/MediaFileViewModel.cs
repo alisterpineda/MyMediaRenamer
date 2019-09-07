@@ -11,6 +11,7 @@ namespace MyMediaRenamer.Gui.ViewModels
     public class MediaFileViewModel : BaseViewModel
     {
         #region Members
+        private string _initialFilePath { get; set; }
         #endregion
 
         #region Constructors
@@ -30,13 +31,33 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         public  MediaFile MediaFile { get; }
 
-        public string InitialFilePath => MediaFile.InitialFilePath;
-        public string FilePath => MediaFile.FilePath;
+        public string InitialFilePath
+        {
+            get => _initialFilePath;
+            set
+            {
+                if (value == InitialFilePath)
+                    return;
+
+                _initialFilePath = value;
+                OnPropertyChanged(nameof(InitialFilePath));
+            }
+        }
+
+        public string FilePath
+        {
+            get => MediaFile.FilePath;
+            set => MediaFile.FilePath = value;
+        }
         public string FileName => MediaFile.FileName;
         public IReadOnlyCollection<Directory> MetadataDirectories => MediaFile.MetadataDirectories;
         public string ErrorMessage => MediaFile.ErrorMessage;
 
-        public MediaFileStatus Status => MediaFile.Status;
+        public MediaFileStatus Status
+        {
+            get => MediaFile.Status;
+            set => MediaFile.Status = value;
+        }
 
         public string StatusIcon
         {
@@ -85,6 +106,12 @@ namespace MyMediaRenamer.Gui.ViewModels
         #endregion
 
         #region Methods
+
+        public void Reload()
+        {
+            InitialFilePath = FilePath;
+            Status = MediaFileStatus.Normal;
+        }
 
         #region ICommand Methods
 
