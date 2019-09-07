@@ -20,13 +20,7 @@ namespace MyMediaRenamer.Gui
                 MinWidth = 200,
                 DataContext = new MainViewModel()
             };
-            mainWindow.Closed += MainWindow_Closed;
             mainWindow.Show();
-        }
-
-        private void MainWindow_Closed(object sender, System.EventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }

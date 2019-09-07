@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:MyMediaRenamer.Gui"
              xmlns:views="clr-namespace:MyMediaRenamer.Gui.Views"
              xmlns:viewModels="clr-namespace:MyMediaRenamer.Gui.ViewModels"
-             Startup="App_OnStartup">
+             Startup="App_OnStartup"
+             ShutdownMode="OnMainWindowClose">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
