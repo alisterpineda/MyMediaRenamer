@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace MetadataToolWpf
+namespace MyMediaRenamer.Gui.Utilities
 {
     public class RelayCommand : ICommand
     {

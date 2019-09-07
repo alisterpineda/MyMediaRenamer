@@ -1,5 +1,10 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
+using System.Windows.Input;
+using MetadataExtractor;
 using MyMediaRenamer.Core;
+using MyMediaRenamer.Gui.Utilities;
+using MyMediaRenamer.Gui.Utilities.WindowService;
 
 namespace MyMediaRenamer.Gui.ViewModels
 {
@@ -13,6 +18,9 @@ namespace MyMediaRenamer.Gui.ViewModels
         public MediaFileViewModel(string filePath)
         {
             MediaFile = new MediaFile(filePath);
+
+            ShowMetadataCommand = new RelayCommand(x => DoShowMetadata());
+
             MediaFile.PropertyChanged += MediaFile_PropertyChanged;
         }
 
@@ -25,6 +33,7 @@ namespace MyMediaRenamer.Gui.ViewModels
         public string InitialFilePath => MediaFile.InitialFilePath;
         public string FilePath => MediaFile.FilePath;
         public string FileName => MediaFile.FileName;
+        public IReadOnlyCollection<Directory> MetadataDirectories => MediaFile.MetadataDirectories;
         public string ErrorMessage => MediaFile.ErrorMessage;
 
         public MediaFileStatus Status => MediaFile.Status;
@@ -67,9 +76,27 @@ namespace MyMediaRenamer.Gui.ViewModels
             }
         }
 
+        public MetadataViewerWindowService MetadataViewerWindowService { get; } = new MetadataViewerWindowService();
+
+        #region ICommand
+        public ICommand ShowMetadataCommand { get; }
+        #endregion
+
         #endregion
 
         #region Methods
+
+        #region ICommand Methods
+
+        public void DoShowMetadata()
+        {
+            MetadataViewerWindowService.Show(new MetadataViewerViewModel(this));
+        }
+
+        #endregion
+
+        #region Event Handlers
+
         private void MediaFile_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(MediaFile.FilePath))
@@ -83,7 +110,10 @@ namespace MyMediaRenamer.Gui.ViewModels
                 OnPropertyChanged(nameof(StatusIcon));
                 OnPropertyChanged(nameof(ToolTip));
             }
-        }
+        } 
+        #endregion
+
+
         #endregion
     }
 }

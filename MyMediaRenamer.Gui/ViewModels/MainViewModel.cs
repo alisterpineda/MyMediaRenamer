@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using MetadataToolWpf;
 using Microsoft.Win32;
 using MyMediaRenamer.Core;
 using MyMediaRenamer.Core.FilePathTags;
+using MyMediaRenamer.Gui.Utilities;
+using MyMediaRenamer.Gui.Utilities.WindowService;
 
 namespace MyMediaRenamer.Gui.ViewModels
 {
@@ -111,7 +112,7 @@ namespace MyMediaRenamer.Gui.ViewModels
                 OnPropertyChanged(nameof(SelectedMediaFileItem));
             }
         }
-        
+
         #region ICommands
         public ICommand AddMediaFilesCommand { get; }
         public ICommand RemoveMediaFilesCommand { get; }
