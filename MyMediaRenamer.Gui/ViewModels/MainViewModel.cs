@@ -8,7 +8,6 @@ using Microsoft.Win32;
 using MyMediaRenamer.Core;
 using MyMediaRenamer.Core.FilePathTags;
 using MyMediaRenamer.Gui.Utilities;
-using MyMediaRenamer.Gui.Utilities.WindowService;
 
 namespace MyMediaRenamer.Gui.ViewModels
 {

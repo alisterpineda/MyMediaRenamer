@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.IO;
 using System.IO.Abstractions;
 using System.Runtime.CompilerServices;
-using System.Text;
 using MetadataExtractor;
 using MetadataExtractor.Util;
 using MyMediaRenamer.Core.Annotations;

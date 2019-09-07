@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using MyMediaRenamer.Gui.ViewModels;
 
 namespace MyMediaRenamer.Gui.Views
 {

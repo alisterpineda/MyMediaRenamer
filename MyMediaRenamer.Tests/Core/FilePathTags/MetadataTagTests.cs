@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MyMediaRenamer.Core;
+﻿using MyMediaRenamer.Core;
 using MyMediaRenamer.Core.FilePathTags;
 using NUnit.Framework;
 

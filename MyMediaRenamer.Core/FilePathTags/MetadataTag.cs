@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
-using MyMediaRenamer.Core;
-using MyMediaRenamer.Core.FilePathTags;
 
 namespace MyMediaRenamer.Core.FilePathTags
 {
