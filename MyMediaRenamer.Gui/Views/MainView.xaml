@@ -114,9 +114,6 @@
                         ToolTip="Run"
                         Command="{Binding StartRenamingCommand}"
                         Style="{StaticResource IconOnlyButton}"/>
-                <Button Content="&#xf04c;"
-                        ToolTip="Pause --NOT IMPLEMENTED--"
-                        Style="{StaticResource IconOnlyButton}"/>
                 <Button Content="&#xf04d;"
                         ToolTip="Stop --NOT IMPLEMENTED--"
                         Style="{StaticResource IconOnlyButton}"/>
