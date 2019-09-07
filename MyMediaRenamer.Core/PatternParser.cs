@@ -18,7 +18,9 @@ namespace MyMediaRenamer.Core
         {
             {"datetime", (tagOptionsString) => new DateTimeTag(tagOptionsString) },
             {"hash", (tagOptionsString) => new HashTag(tagOptionsString) },
-            {"name", (tagOptionsString) => new NameTag(tagOptionsString) }
+            {"name", (tagOptionsString) => new NameTag(tagOptionsString) },
+            // Shortcuts
+            {"ext", (tagOptionsString) => new NameTag(tagOptionsString){Type = NameTagType.Extension} },
         };
 
         #endregion

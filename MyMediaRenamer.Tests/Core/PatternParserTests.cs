@@ -22,6 +22,8 @@ namespace MyMediaRenamer.Tests.Core
             new object[] {"<name|type=name>", new NameTag() },
             new object[] {"<name|type=extension>", new NameTag{Type = NameTagType.Extension} },
             new object[] {"<name|type=full>", new NameTag{Type = NameTagType.Full} },
+            // Shortcuts
+            new object[] {"<ext>", new NameTag{Type = NameTagType.Extension} },
         };
 
         [TestCaseSource(nameof(SingleTagCases))]
