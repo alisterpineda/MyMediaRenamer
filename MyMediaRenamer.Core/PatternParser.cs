@@ -16,11 +16,12 @@ namespace MyMediaRenamer.Core
         private static readonly Regex _regexCustomToken = new Regex("^(.*)\\|(.*)");
         private static readonly Dictionary<string, Func<string, BaseTag>> FilePathTagLookup = new Dictionary<string, Func<string, BaseTag>>
         {
-            {"datetime", (tagOptionsString) => new DateTimeTag(tagOptionsString) },
-            {"hash", (tagOptionsString) => new HashTag(tagOptionsString) },
-            {"name", (tagOptionsString) => new NameTag(tagOptionsString) },
+            { "datetime", (tagOptionsString) => new DateTimeTag(tagOptionsString) },
+            { "hash", (tagOptionsString) => new HashTag(tagOptionsString) },
+            { "meta", (tagOptionsString) => new MetadataTag(tagOptionsString) },
+            { "name", (tagOptionsString) => new NameTag(tagOptionsString) },
             // Shortcuts
-            {"ext", (tagOptionsString) => new NameTag(tagOptionsString){Type = NameTagType.Extension} },
+            { "ext", (tagOptionsString) => new NameTag(tagOptionsString){Type = NameTagType.Extension} },
         };
 
         #endregion

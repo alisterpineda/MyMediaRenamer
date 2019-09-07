@@ -33,6 +33,10 @@ namespace MyMediaRenamer.Core.FilePathTags
                 {
                     property.SetValue(this, int.Parse(option.Value));
                 }
+                else if (property.PropertyType == typeof(bool))
+                {
+                    property.SetValue(this, bool.Parse(option.Value));
+                }
                 else if (property.PropertyType == typeof(string))
                 {
                     property.SetValue(this, option.Value);
@@ -54,9 +58,16 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         #region Methods
 
-        public abstract override bool Equals(object obj);
         public abstract override string ToString();
         protected abstract string GenerateString(MediaRenamer mediaRenamer,  MediaFile mediaFile);
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is BaseTag other))
+                return false;
+
+            return MaxLength.Equals(other.MaxLength);
+        }
 
         public override int GetHashCode()
         {
