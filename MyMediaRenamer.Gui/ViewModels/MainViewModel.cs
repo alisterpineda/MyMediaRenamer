@@ -112,6 +112,8 @@ namespace MyMediaRenamer.Gui.ViewModels
             }
         }
 
+        public RenamerViewModel RenamerViewModel { get; } = new RenamerViewModel();
+
         #region ICommands
         public ICommand AddMediaFilesCommand { get; }
         public ICommand RemoveMediaFilesCommand { get; }
@@ -212,10 +214,7 @@ namespace MyMediaRenamer.Gui.ViewModels
                 if (Tags.Count == 0)
                     return;
 
-                MediaRenamer mediaRenamer = new MediaRenamer();
-                List<MediaFile> mediaFiles = new List<MediaFile>();
-
-                mediaRenamer.Execute(MediaFiles.Where(x => x.Status == MediaFileStatus.Normal).Select(x => x.MediaFile).ToList(), Tags);
+                RenamerViewModel.Execute(MediaFiles.Where(x => x.Status == MediaFileStatus.Normal), Tags);
             }
             catch (Exception e)
             {

@@ -52,7 +52,7 @@ namespace MyMediaRenamer.Core.FilePathTags
             return $"NameTag :: '{Type}'";
         }
 
-        protected override string GenerateString(MediaRenamer mediaRenamer, MediaFile mediaFile)
+        protected override string GenerateString(Renamer renamer, MediaFile mediaFile)
         {
             switch (Type)
             {

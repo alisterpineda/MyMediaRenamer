@@ -6,9 +6,9 @@ using MyMediaRenamer.Core.FilePathTags;
 
 namespace MyMediaRenamer.Core
 {
-    public class MediaRenamer
+    public class Renamer
     {
-        public async void Execute(IList<MediaFile> mediaFiles, IList<BaseTag> filePathTags)
+        public async void Execute(IEnumerable<MediaFile> mediaFiles, IEnumerable<BaseTag> filePathTags)
         {
             try
             {

@@ -64,7 +64,7 @@ namespace MyMediaRenamer.Core.FilePathTags
             return $"HashTag :: '{Algorithm}'";
         }
 
-        protected override string GenerateString(MediaRenamer mediaRenamer, MediaFile mediaFile)
+        protected override string GenerateString(Renamer renamer, MediaFile mediaFile)
         {
             using (var stream = mediaFile.GetStream())
             {

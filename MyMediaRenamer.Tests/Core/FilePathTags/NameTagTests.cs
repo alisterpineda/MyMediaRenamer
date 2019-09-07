@@ -18,7 +18,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
         {
             MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(fileName));
 
-            string actualString = testTag.GetString(TestMediaRenamer, testMediaFile);
+            string actualString = testTag.GetString(TestRenamer, testMediaFile);
 
             Assert.AreEqual(expectedString, actualString);
         }

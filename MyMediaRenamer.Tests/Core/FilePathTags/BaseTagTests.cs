@@ -20,7 +20,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
             MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(IosPhoto));
             testTag.Text = testString;
 
-            string actualString = testTag.GetString(TestMediaRenamer, testMediaFile);
+            string actualString = testTag.GetString(TestRenamer, testMediaFile);
 
             Assert.AreEqual(expectedString, actualString);
         }

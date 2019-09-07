@@ -66,6 +66,7 @@
     </ApplicationDefinition>
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="ViewModels\MetadataViewerViewModel.cs" />
+    <Compile Include="ViewModels\RenamerViewModel.cs" />
     <Compile Include="Views\MetadataViewerView.xaml.cs">
       <DependentUpon>MetadataViewerView.xaml</DependentUpon>
     </Compile>

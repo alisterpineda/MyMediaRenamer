@@ -62,7 +62,7 @@ namespace MyMediaRenamer.Core.FilePathTags
             return $"MetadataTag :: {GetHashCode().ToString("x8")}";
         }
 
-        protected override string GenerateString(MediaRenamer mediaRenamer, MediaFile mediaFile)
+        protected override string GenerateString(Renamer renamer, MediaFile mediaFile)
         {
             int tagType = _enumToTagTypeMap[Name];
 

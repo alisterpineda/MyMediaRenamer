@@ -41,7 +41,7 @@
             return $"Text :: '{Text}'";
         }
 
-        protected override string GenerateString(MediaRenamer mediaRenamer, MediaFile mediaFile)
+        protected override string GenerateString(Renamer renamer, MediaFile mediaFile)
         {
             return Text;
         }

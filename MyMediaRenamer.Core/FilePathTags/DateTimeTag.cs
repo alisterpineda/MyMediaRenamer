@@ -52,7 +52,7 @@ namespace MyMediaRenamer.Core.FilePathTags
             return $"DateTimeTag :: '{Format}'";
         }
 
-        protected override string GenerateString(MediaRenamer mediaRenamer, MediaFile mediaFile)
+        protected override string GenerateString(Renamer renamer, MediaFile mediaFile)
         {
             DateTime? dateTime = null;
             if (mediaFile.FileType == FileType.Jpeg)

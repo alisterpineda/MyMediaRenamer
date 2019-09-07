@@ -59,7 +59,7 @@ namespace MyMediaRenamer.Core.FilePathTags
         #region Methods
 
         public abstract override string ToString();
-        protected abstract string GenerateString(MediaRenamer mediaRenamer,  MediaFile mediaFile);
+        protected abstract string GenerateString(Renamer renamer,  MediaFile mediaFile);
 
         public override bool Equals(object obj)
         {
@@ -79,9 +79,9 @@ namespace MyMediaRenamer.Core.FilePathTags
             }
         }
 
-        public string GetString(MediaRenamer mediaRenamer, MediaFile mediaFile)
+        public string GetString(Renamer renamer, MediaFile mediaFile)
         {
-            string generatedString = GenerateString(mediaRenamer, mediaFile);
+            string generatedString = GenerateString(renamer, mediaFile);
 
             if (MaxLength.HasValue)
                 generatedString = generatedString.Substring(0, MaxLength.GetValueOrDefault());

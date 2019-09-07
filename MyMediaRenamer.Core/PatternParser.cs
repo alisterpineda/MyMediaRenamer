@@ -79,7 +79,7 @@ namespace MyMediaRenamer.Core
             return tags;
         }
 
-        private static BaseTag GetFilePathTag(string tagPattern, MediaRenamer mediaRenamer = null)
+        private static BaseTag GetFilePathTag(string tagPattern, Renamer renamer = null)
         {
             string tagType = tagPattern;
             string tagOptionsString = String.Empty;
