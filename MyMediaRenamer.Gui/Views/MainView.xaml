@@ -10,8 +10,10 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File"></MenuItem>
         </Menu>
-        <Grid x:Name="ContentPanel" Margin="5">
+        <Grid x:Name="ContentPanel" Margin="12">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
@@ -20,7 +22,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2"
+                       Text="File Name Pattern"
+                       Style="{StaticResource HeaderTextBlock}"/>
             <Grid x:Name="PatternPanel"
+                  Grid.Row="1"
                   Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -38,11 +44,17 @@
                         Style="{StaticResource IconOnlyButton}"/>
                 <TextBlock Grid.Row="1"
                            Grid.ColumnSpan="2"
+                           Margin="0,6,0,0"
                            Visibility="{Binding HasPatternErrorMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
-                           Text="{Binding PatternErrorMessage}"/>
+                           Text="{Binding PatternErrorMessage}"
+                           Style="{StaticResource ErrorTextBlock}"/>
             </Grid>
+            <TextBlock Grid.Row="2" Grid.ColumnSpan="2"
+                       Margin="0,6,0,0"
+                       Text="Media Files"
+                       Style="{StaticResource HeaderTextBlock}"/>
             <ListView x:Name="MediaFilesListView"
-                      Grid.Row="1"
+                      Grid.Row="3"
                       Grid.ColumnSpan="2"
                       ItemsSource="{Binding MediaFiles}"
                       SelectedIndex="{Binding SelectedMediaFileIndex, Mode=OneWayToSource}"
@@ -81,7 +93,8 @@
                 </ListView.ItemContainerStyle>
             </ListView>
             <WrapPanel x:Name="MediaFilesActionButtonsPanel"
-                        Grid.Row="2">
+                       Margin="0,6,0,0"
+                       Grid.Row="4">
                 <Button Content="&#xf067;"
                         ToolTip="Add Files..."
                         Command="{Binding AddMediaFilesCommand}"
@@ -106,9 +119,10 @@
                         Style="{StaticResource IconOnlyButton}"/>
             </WrapPanel>
             <WrapPanel x:Name="MediaRenamerActionButtonsPanel"
-                        Grid.Row="2" Grid.Column="1"
-                        Orientation="Horizontal"
-                        FlowDirection="RightToLeft">
+                       Margin="0,6,0,0"
+                       Grid.Row="4" Grid.Column="1"
+                       Orientation="Horizontal"
+                       FlowDirection="RightToLeft">
 
                 <Button Content="&#xf04b;"
                         ToolTip="Run"
