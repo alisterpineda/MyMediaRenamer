@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using MyMediaRenamer.Core;
 using MyMediaRenamer.Core.FilePathTags;
 using MyMediaRenamer.Gui.Utilities;
+using MyMediaRenamer.Gui.Utilities.WindowService;
 
 namespace MyMediaRenamer.Gui.ViewModels
 {
@@ -33,6 +34,7 @@ namespace MyMediaRenamer.Gui.ViewModels
             MoveMediaFileDownCommand = new RelayCommand(x => DoMoveMediaFileDown(), x => CanMoveMediaFileDown());
             ReloadMediaFilesCommand = new RelayCommand(x => DoReloadMediaFiles(x), x => CanReloadMediaFiles());
             StartRenamingCommand = new RelayCommand(x => DoStartRenaming(), x => CanStartRenaming());
+            OpenRenamerSettingsDialogCommand = new RelayCommand(x => DoOpenRenamerSettingsDialog());
         }
 
         #endregion
@@ -114,6 +116,8 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         public RenamerViewModel RenamerViewModel { get; } = new RenamerViewModel();
 
+        private RenamerSettingsDialogService RenamerSettingsDialogService { get; } = new RenamerSettingsDialogService();
+
         #region ICommands
         public ICommand AddMediaFilesCommand { get; }
         public ICommand RemoveMediaFilesCommand { get; }
@@ -121,6 +125,7 @@ namespace MyMediaRenamer.Gui.ViewModels
         public ICommand MoveMediaFileDownCommand { get; }
         public ICommand ReloadMediaFilesCommand { get; }
         public ICommand StartRenamingCommand { get; }
+        public ICommand OpenRenamerSettingsDialogCommand { get; }
         #endregion
 
         #endregion
@@ -214,7 +219,7 @@ namespace MyMediaRenamer.Gui.ViewModels
                 if (Tags.Count == 0)
                     return;
 
-                RenamerViewModel.Execute(MediaFiles.Where(x => x.Status == MediaFileStatus.Normal), Tags);
+                RenamerViewModel.ExecuteAll(MediaFiles.Where(x => x.Status == MediaFileStatus.Normal), Tags);
             }
             catch (Exception e)
             {
@@ -222,6 +227,11 @@ namespace MyMediaRenamer.Gui.ViewModels
             }
 
 
+        }
+
+        private void DoOpenRenamerSettingsDialog()
+        {
+            RenamerSettingsDialogService.ShowDialog(RenamerViewModel);
         }
 
         #endregion

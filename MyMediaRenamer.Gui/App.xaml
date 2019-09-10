@@ -20,6 +20,9 @@
             <DataTemplate DataType="{x:Type viewModels:MainViewModel}">
                 <views:MainView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:RenamerViewModel}">
+                <views:RenamerSettingsView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:MetadataViewerViewModel}">
                 <views:MetadataViewerView/>
             </DataTemplate>

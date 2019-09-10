@@ -131,6 +131,10 @@
                 <Button Content="&#xf04d;"
                         ToolTip="Stop --NOT IMPLEMENTED--"
                         Style="{StaticResource IconOnlyButton}"/>
+                <Button Content="&#xf013;"
+                        ToolTip="Renamer Settings"
+                        Command="{Binding OpenRenamerSettingsDialogCommand}"
+                        Style="{StaticResource IconOnlyButton}"/>
             </WrapPanel>
         </Grid>
     </DockPanel>

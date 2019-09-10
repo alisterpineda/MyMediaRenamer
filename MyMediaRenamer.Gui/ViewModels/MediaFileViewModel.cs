@@ -97,7 +97,7 @@ namespace MyMediaRenamer.Gui.ViewModels
             }
         }
 
-        public MetadataViewerWindowService MetadataViewerWindowService { get; } = new MetadataViewerWindowService();
+        private MetadataViewerWindowService MetadataViewerWindowService { get; } = new MetadataViewerWindowService();
 
         #region ICommand
         public ICommand ShowMetadataCommand { get; }

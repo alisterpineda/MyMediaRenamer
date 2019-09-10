@@ -17,7 +17,7 @@ namespace MyMediaRenamer.Gui
                 Height = 800,
                 MinHeight = 400,
                 Width = 450,
-                MinWidth = 200,
+                MinWidth = 300,
                 DataContext = new MainViewModel()
             };
             mainWindow.Show();

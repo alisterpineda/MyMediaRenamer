@@ -65,10 +65,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="Utilities\WindowService\IDialogService.cs" />
+    <Compile Include="Utilities\WindowService\RenamerSettingsDialogService.cs" />
     <Compile Include="ViewModels\MetadataViewerViewModel.cs" />
     <Compile Include="ViewModels\RenamerViewModel.cs" />
     <Compile Include="Views\MetadataViewerView.xaml.cs">
       <DependentUpon>MetadataViewerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RenamerSettingsView.xaml.cs">
+      <DependentUpon>RenamerSettingsView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Styles\TextBlocks.xaml">
       <SubType>Designer</SubType>
@@ -102,6 +107,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MetadataViewerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RenamerSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
