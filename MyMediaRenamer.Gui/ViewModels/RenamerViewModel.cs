@@ -42,6 +42,18 @@ namespace MyMediaRenamer.Gui.ViewModels
             set => _renamer.PreserveExtension = value;
         }
 
+        public bool SkipOnNullTag
+        {
+            get => _renamer.SkipOnNullTag;
+            set => _renamer.SkipOnNullTag = value;
+        }
+
+        public string NullTagString
+        {
+            get => _renamer.NullTagString;
+            set => _renamer.NullTagString = value;
+        }
+
         #region ICommands
         public ICommand OkCommand { get; }
         public ICommand CancelCommand { get; }

@@ -14,6 +14,8 @@ namespace MyMediaRenamer.Core
         #region Members
 
         private bool _preserveExtension = true;
+        private bool _skipOnNullTag = false;
+        private string _nullTagString = "null";
 
         #endregion
 
@@ -30,6 +32,34 @@ namespace MyMediaRenamer.Core
                 _preserveExtension = value;
 
                 OnPropertyChanged(nameof(PreserveExtension));
+            }
+        }
+
+        public bool SkipOnNullTag
+        {
+            get => _skipOnNullTag;
+            set
+            {
+                if (value == SkipOnNullTag)
+                    return;
+
+                _skipOnNullTag = value;
+
+                OnPropertyChanged(nameof(SkipOnNullTag));
+            }
+        }
+
+        public string NullTagString
+        {
+            get => _nullTagString;
+            set
+            {
+                if (value == NullTagString)
+                    return;
+
+                _nullTagString = value;
+
+                OnPropertyChanged(nameof(NullTagString));
             }
         }
 
@@ -54,23 +84,42 @@ namespace MyMediaRenamer.Core
 
         public void ExecuteSingle(MediaFile mediaFile, IEnumerable<BaseTag> filePathTags)
         {
-            string newFilePath = GetNewFilePath(mediaFile, filePathTags);
-            mediaFile.Rename(newFilePath);
+            if(TryGetNewFilePath(mediaFile, filePathTags, out string newFilePath))
+                mediaFile.Rename(newFilePath);
         }
 
-        public string GetNewFilePath(MediaFile mediaFile, IEnumerable<BaseTag> filePathTags)
+        public bool TryGetNewFilePath(MediaFile mediaFile, IEnumerable<BaseTag> filePathTags, out string newFilePath)
         {
-            string newFilePath = string.Empty;
+            newFilePath = string.Empty;
 
             foreach (var filePathTag in filePathTags)
             {
-                newFilePath += filePathTag.GetString(this, mediaFile);
+                string tagString = filePathTag.GetString(this, mediaFile);
+
+                if (tagString == null)
+                {
+                    if (SkipOnNullTag)
+                    {
+                        mediaFile.Status = MediaFileStatus.Error;
+                        mediaFile.ErrorMessage = $"Tag '{filePathTag}' could not produce a valid string!";
+                        return false;
+                    }
+                    else
+                    {
+                        newFilePath += NullTagString;
+                    }
+                }
+                else
+                {
+                    newFilePath += tagString;
+                }
             }
 
             if (PreserveExtension)
                 newFilePath += mediaFile.FileExtension;
 
-            return Path.Combine(mediaFile.FileDirectory, newFilePath);
+            newFilePath = Path.Combine(mediaFile.FileDirectory, newFilePath);
+            return true;
         }
 
         public object Clone()

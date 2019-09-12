@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Abstractions.TestingHelpers;
 using System.Text;
 using MyMediaRenamer.Core;
@@ -10,14 +11,6 @@ namespace MyMediaRenamer.Tests.Core
 {
     public class RenamerTests : BaseTestFixture
     {
-        private static readonly MediaFile testMediaFile = new MediaFile(@"C:\image.jpg")
-        {
-            FileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
-            {
-                {@"C:\image.jpg", new MockFileData("") }
-            })
-        };
-
         private static object[] GetNewFilePathCases =
         {
             new object[]
@@ -27,7 +20,7 @@ namespace MyMediaRenamer.Tests.Core
                 {
                     new TextTag{Text="abc"}
                 },
-                @"C:\abc.jpg"
+                @"abc.jpg"
             },
             new object[]
             {
@@ -36,16 +29,38 @@ namespace MyMediaRenamer.Tests.Core
                 {
                     new TextTag{Text="abc"}
                 },
-                @"C:\abc"
-            }
+                @"abc"
+            },
+            new object[]
+            {
+                new Renamer(),
+                new List<BaseTag>
+                {
+                    new MetadataTag()
+                },
+                @"null.jpg"
+            },
+            new object[]
+            {
+                new Renamer{SkipOnNullTag = true},
+                new List<BaseTag>
+                {
+                    new MetadataTag()
+                },
+                null
+            },
         };
 
         [TestCaseSource(nameof(GetNewFilePathCases))]
-        public void GetNewFilePathTest(Renamer testRenamer, IEnumerable<BaseTag> testTags, string expectedPath)
+        public void GetNewFilePathTest(Renamer testRenamer, IEnumerable<BaseTag> testTags, string expectedFileName)
         {
-            string actualPath = testRenamer.GetNewFilePath(testMediaFile, testTags);
+            MediaFile testMediaFile = new MediaFile(GetTestDataFilePath(IosPhoto));
+            bool result = testRenamer.TryGetNewFilePath(testMediaFile, testTags, out string actualPath);
 
-            Assert.AreEqual(expectedPath, actualPath);
+            if (expectedFileName != null)
+                Assert.AreEqual(GetTestDataFilePath(expectedFileName), actualPath);
+            else
+                Assert.IsFalse(result);
         }
     }
 }

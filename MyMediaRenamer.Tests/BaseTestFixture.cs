@@ -28,9 +28,9 @@ namespace MyMediaRenamer.Tests
 
         #region Properties
 
-        protected string TestDataDirectory => Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data");
+        protected static string TestDataDirectory => Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data");
 
-        protected string TempDataDirectory => Path.Combine(TestContext.CurrentContext.TestDirectory, "Temp Data");
+        protected static string TempDataDirectory => Path.Combine(TestContext.CurrentContext.TestDirectory, "Temp Data");
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace MyMediaRenamer.Tests
 
         }
 
-        protected string GetTestDataFilePath(string fileName)
+        protected static string GetTestDataFilePath(string fileName)
         {
             return Path.Combine(TestDataDirectory, fileName);
         }

@@ -7,6 +7,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 {
     public enum MetadataName
     {
+        ExifImageDescription,
         ExifMake,
         ExifModel,
         ExifOrientation
@@ -17,6 +18,7 @@ namespace MyMediaRenamer.Core.FilePathTags
         #region Members
         private static readonly Dictionary<MetadataName, int> _enumToTagTypeMap = new Dictionary<MetadataName, int>
         {
+            { MetadataName.ExifImageDescription, ExifDirectoryBase.TagImageDescription },
             { MetadataName.ExifMake, ExifDirectoryBase.TagMake },
             { MetadataName.ExifModel, ExifDirectoryBase.TagModel },
             { MetadataName.ExifOrientation, ExifDirectoryBase.TagOrientation }

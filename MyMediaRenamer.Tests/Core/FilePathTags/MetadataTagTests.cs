@@ -8,7 +8,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
     {
         private static object[] GetStringCases =
         {
-            new object[] { IosPhoto, new MetadataTag(), "Apple" },
+            new object[] { IosPhoto, new MetadataTag(), null },
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifOrientation}, "Top, left side (Horizontal / normal)" },
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifOrientation, UseRaw = true}, "1" },
         };

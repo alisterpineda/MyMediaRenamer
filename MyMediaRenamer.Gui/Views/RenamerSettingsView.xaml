@@ -9,7 +9,15 @@
              d:DesignWidth="300">
     <StackPanel Margin="12">
         <CheckBox IsChecked="{Binding PreserveExtension}"
-                  Content="Preserve Extension"/>
+                  Content="Preserve extension"/>
+        <CheckBox IsChecked="{Binding SkipOnNullTag}"
+                  Content="Skip on null tag"/>
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Left"
+                       Text="Default Null Tag String"/>
+            <TextBox Text="{Binding NullTagString}"
+                     HorizontalAlignment="Stretch"/>
+        </DockPanel>
         <StackPanel Margin="0,12,0,0"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
