@@ -69,6 +69,9 @@
     <Compile Include="Utilities\WindowService\RenamerSettingsDialogService.cs" />
     <Compile Include="ViewModels\MetadataViewerViewModel.cs" />
     <Compile Include="ViewModels\RenamerViewModel.cs" />
+    <Compile Include="Views\AboutDialogWindow.xaml.cs">
+      <DependentUpon>AboutDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MetadataViewerView.xaml.cs">
       <DependentUpon>MetadataViewerView.xaml</DependentUpon>
     </Compile>
@@ -76,6 +79,10 @@
       <DependentUpon>RenamerSettingsView.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Styles\TextBlocks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AboutDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +147,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Fonts\FontAwesome-Brands.otf" />
     <Resource Include="Resources\Fonts\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>

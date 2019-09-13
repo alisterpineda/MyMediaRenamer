@@ -1,0 +1,32 @@
+﻿<Window x:Class="MyMediaRenamer.Gui.Views.AboutDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyMediaRenamer.Gui.Views"
+        Title="About MyMediaRenamer"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize">
+    <DockPanel Margin="16">
+        <TextBlock DockPanel.Dock="Top"
+                   FontWeight="Heavy"
+                   FontSize="32"
+                   Text="MyMediaRenamer"/>
+        <StackPanel x:Name="ActionButtonsPanel"
+                    DockPanel.Dock="Bottom"
+                    Margin="0,24,0,0"
+                    Orientation="Horizontal">
+            <Button x:Name="GitHubButton" Content="&#xf09b;"
+                    ToolTip="Show GitHub project..."
+                    Click="GitHubButton_OnClick"
+                    Style="{StaticResource BrandIconOnlyButtonStyle}"/>
+        </StackPanel>
+        <StackPanel x:Name="InformationPanel">
+            <TextBlock>
+                <Run Text="Version"/>
+                <Run Text="0.1"/>
+            </TextBlock>
+        </StackPanel>
+
+    </DockPanel>
+</Window>

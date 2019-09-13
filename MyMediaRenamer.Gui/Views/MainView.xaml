@@ -8,7 +8,20 @@
              d:DesignHeight="800" d:DesignWidth="450">
     <DockPanel x:Name="TopLevelPanel">
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File"></MenuItem>
+            <MenuItem Header="_File">
+                <MenuItem Header="Add files..."
+                          Command="{Binding AddMediaFilesCommand}">
+                </MenuItem>
+                <MenuItem Header="_Exit"
+                          Command="{Binding ShutdownApplicationCommand}"
+                          InputGestureText="Alt+F4"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_View Wiki on GitHub..."
+                          Command="{Binding OpenWikiOnGitHubCommand}"/>
+                <MenuItem Header="_About MyMediaRenamer"
+                          Command="{Binding OpenAboutDialogCommand}"/>
+            </MenuItem>
         </Menu>
         <Grid x:Name="ContentPanel" Margin="12">
             <Grid.RowDefinitions>
@@ -39,9 +52,6 @@
                 <TextBox x:Name="PatternTextBox"
                          Text="{Binding Pattern, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"/>
-                <Button Grid.Column="1"
-                        Content="&#xf141;"
-                        Style="{StaticResource IconOnlyButton}"/>
                 <TextBlock Grid.Row="1"
                            Grid.ColumnSpan="2"
                            Margin="0,6,0,0"
@@ -98,25 +108,25 @@
                 <Button Content="&#xf067;"
                         ToolTip="Add Files..."
                         Command="{Binding AddMediaFilesCommand}"
-                        Style="{StaticResource IconOnlyButton}"/>
+                        Style="{StaticResource IconOnlyButtonStyle}"/>
                 <Button Content="&#xf068;"
                         ToolTip="Remove Files"
                         Command="{Binding RemoveMediaFilesCommand}"
                         CommandParameter="{Binding SelectedItems, ElementName=MediaFilesListView}"
-                        Style="{StaticResource IconOnlyButton}"/>
+                        Style="{StaticResource IconOnlyButtonStyle}"/>
                 <Button Content="&#xf062;"
                         ToolTip="Move Up"
                         Command="{Binding MoveMediaFileUpCommand}"
-                        Style="{StaticResource IconOnlyButton}"/>
+                        Style="{StaticResource IconOnlyButtonStyle}"/>
                 <Button Content="&#xf063;"
                         ToolTip="Move Down"
                         Command="{Binding MoveMediaFileDownCommand}"
-                        Style="{StaticResource IconOnlyButton}"/>
+                        Style="{StaticResource IconOnlyButtonStyle}"/>
                 <Button Content="&#xf2f9;"
                         ToolTip="Reload"
                         Command="{Binding ReloadMediaFilesCommand}"
                         CommandParameter="{Binding SelectedItems, ElementName=MediaFilesListView}"
-                        Style="{StaticResource IconOnlyButton}"/>
+                        Style="{StaticResource IconOnlyButtonStyle}"/>
             </WrapPanel>
             <WrapPanel x:Name="MediaRenamerActionButtonsPanel"
                        Margin="0,6,0,0"
@@ -127,14 +137,14 @@
                 <Button Content="&#xf04b;"
                         ToolTip="Run"
                         Command="{Binding StartRenamingCommand}"
-                        Style="{StaticResource IconOnlyButton}"/>
+                        Style="{StaticResource IconOnlyButtonStyle}"/>
                 <Button Content="&#xf04d;"
                         ToolTip="Stop --NOT IMPLEMENTED--"
-                        Style="{StaticResource IconOnlyButton}"/>
+                        Style="{StaticResource IconOnlyButtonStyle}"/>
                 <Button Content="&#xf013;"
                         ToolTip="Renamer Settings"
                         Command="{Binding OpenRenamerSettingsDialogCommand}"
-                        Style="{StaticResource IconOnlyButton}"/>
+                        Style="{StaticResource IconOnlyButtonStyle}"/>
             </WrapPanel>
         </Grid>
     </DockPanel>

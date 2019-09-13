@@ -13,7 +13,8 @@
                 <ResourceDictionary Source="Resources/Styles/TextBlocks.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <FontFamily x:Key="FontAwesome">pack://application:,,,/Resources/Fonts/FontAwesome.otf#Font Awesome 5 Free Solid"</FontFamily>
+            <FontFamily x:Key="FontAwesomeBrands">pack://application:,,,/Resources/Fonts/FontAwesome-Brands.otf#Font Awesome 5 Brands Regular</FontFamily>
+            <FontFamily x:Key="FontAwesome">pack://application:,,,/Resources/Fonts/FontAwesome.otf#Font Awesome 5 Free Solid</FontFamily>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
             <!-- Window Data Templates -->

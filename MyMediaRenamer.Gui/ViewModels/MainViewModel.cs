@@ -2,13 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
 using MyMediaRenamer.Core;
 using MyMediaRenamer.Core.FilePathTags;
 using MyMediaRenamer.Gui.Utilities;
 using MyMediaRenamer.Gui.Utilities.WindowService;
+using MyMediaRenamer.Gui.Views;
 
 namespace MyMediaRenamer.Gui.ViewModels
 {
@@ -35,6 +38,10 @@ namespace MyMediaRenamer.Gui.ViewModels
             ReloadMediaFilesCommand = new RelayCommand(x => DoReloadMediaFiles(x), x => CanReloadMediaFiles());
             StartRenamingCommand = new RelayCommand(x => DoStartRenaming(), x => CanStartRenaming());
             OpenRenamerSettingsDialogCommand = new RelayCommand(x => DoOpenRenamerSettingsDialog());
+            OpenWikiOnGitHubCommand = new RelayCommand(x => DoOpenWikiOnGitHub());
+            OpenAboutDialogCommand = new RelayCommand(x => DoOpenAboutDialog());
+            ShutdownApplicationCommand = new RelayCommand(x => DoShutdownApplication());
+
         }
 
         #endregion
@@ -118,7 +125,7 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         private RenamerSettingsDialogService RenamerSettingsDialogService { get; } = new RenamerSettingsDialogService();
 
-        #region ICommands
+        #region ICommand Properties
         public ICommand AddMediaFilesCommand { get; }
         public ICommand RemoveMediaFilesCommand { get; }
         public ICommand MoveMediaFileUpCommand { get; }
@@ -126,6 +133,9 @@ namespace MyMediaRenamer.Gui.ViewModels
         public ICommand ReloadMediaFilesCommand { get; }
         public ICommand StartRenamingCommand { get; }
         public ICommand OpenRenamerSettingsDialogCommand { get; }
+        public ICommand OpenWikiOnGitHubCommand { get; }
+        public ICommand OpenAboutDialogCommand { get; }
+        public ICommand ShutdownApplicationCommand { get; }
         #endregion
 
         #endregion
@@ -232,6 +242,26 @@ namespace MyMediaRenamer.Gui.ViewModels
         private void DoOpenRenamerSettingsDialog()
         {
             RenamerSettingsDialogService.ShowDialog(RenamerViewModel);
+        }
+
+        private void DoOpenWikiOnGitHub()
+        {
+            Process.Start(@"https://github.com/alisterpineda/MyMediaRenamer/wiki");
+        }
+
+        private void DoOpenAboutDialog()
+        {
+            var dlg = new AboutDialogWindow
+            {
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+            dlg.ShowDialog();
+        }
+
+        private void DoShutdownApplication()
+        {
+            Application.Current.Shutdown();
         }
 
         #endregion

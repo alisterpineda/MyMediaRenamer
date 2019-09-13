@@ -7,4 +7,9 @@
     <Style x:Key="ErrorTextBlock" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="Red"/>
     </Style>
+    <Style x:Key="IconOnlyTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+    </Style>
 </ResourceDictionary>
