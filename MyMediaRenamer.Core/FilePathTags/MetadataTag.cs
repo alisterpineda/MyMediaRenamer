@@ -31,7 +31,7 @@ namespace MyMediaRenamer.Core.FilePathTags
             { MetadataName.GpsLatitudeRef, GpsDirectory.TagLatitudeRef },
             { MetadataName.GpsLatitude, GpsDirectory.TagLatitude },
             { MetadataName.GpsLongitudeRef, GpsDirectory.TagLongitudeRef },
-            { MetadataName.GpsLongitude, GpsDirectory.TagDestLongitude },
+            { MetadataName.GpsLongitude, GpsDirectory.TagLongitude },
             { MetadataName.GpsAltitudeRef, GpsDirectory.TagAltitudeRef },
             { MetadataName.GpsAltitude, GpsDirectory.TagAltitude }
         };
