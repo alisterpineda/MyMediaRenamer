@@ -185,7 +185,7 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         private bool CanMoveMediaFileUp()
         {
-            return SelectedMediaFileIndex > 0;
+            return SelectedMediaFileIndex != -1 && SelectedMediaFileIndex > 0;
         }
 
         private void DoMoveMediaFileUp()
@@ -195,7 +195,7 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         private bool CanMoveMediaFileDown()
         {
-            return SelectedMediaFileIndex < MediaFiles.Count - 1;
+            return SelectedMediaFileIndex != -1 && SelectedMediaFileIndex < MediaFiles.Count - 1;
         }
 
         private void DoMoveMediaFileDown()
