@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "MyMediaRenamer.Cli": {
+      "commandName": "Project"
+    },
+    "PatternAndFile": {
+      "commandName": "Project",
+      "commandLineArgs": "wowowowow ks ks"
+    }
+  }
+}

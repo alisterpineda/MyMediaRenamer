@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Runtime.CompilerServices;
 using MetadataExtractor;
+using MetadataExtractor.Formats.Exif.Makernotes;
 using MetadataExtractor.Util;
 using MyMediaRenamer.Core.Annotations;
 using Directory = MetadataExtractor.Directory;
@@ -150,13 +151,15 @@ namespace MyMediaRenamer.Core
 
                 FileSystem.File.Move(FilePath, target);
 
+                OnRenamed(FilePath, target);
+
                 FilePath = target;
                 Status = MediaFileStatus.Done;
+                
             }
             catch (Exception e)
             {
-                Status = MediaFileStatus.Error;
-                ErrorMessage = e.Message;
+                ReportError(e.Message);
             }
         }
 
@@ -165,7 +168,17 @@ namespace MyMediaRenamer.Core
             return FileSystem.File.OpenRead(FilePath);
         }
 
+        public void ReportError(string errorMessage)
+        {
+            Status = MediaFileStatus.Error;
+            ErrorMessage = errorMessage;
+            OnErrorReported(errorMessage);
+        }
+
         #endregion
+
+        public event EventHandler<MediaFileRenamedArgs> Renamed;
+        public event EventHandler<MediaFileErrorReportedArgs> ErrorReported;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -174,5 +187,52 @@ namespace MyMediaRenamer.Core
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        protected virtual void OnRenamed(string oldFilePath, string newFilePath)
+        {
+            Renamed?.Invoke(this, new MediaFileRenamedArgs(oldFilePath, newFilePath));
+        }
+
+        protected virtual void OnErrorReported(string errorMessage)
+        {
+            ErrorReported?.Invoke(this, new MediaFileErrorReportedArgs(errorMessage));
+        }
+    }
+
+    public class MediaFileRenamedArgs : EventArgs
+    {
+        #region Constructors
+
+        public MediaFileRenamedArgs(string oldFilePath, string newFilePath)
+        {
+            OldFilePath = string.Copy(oldFilePath);
+            NewFilePath = string.Copy(newFilePath);
+        }
+
+        #endregion
+
+        #region Properties
+
+        public string OldFilePath { get; }
+        public string NewFilePath { get; }
+
+        #endregion
+    }
+
+    public class MediaFileErrorReportedArgs : EventArgs
+    {
+        #region Constructors
+
+        public MediaFileErrorReportedArgs(string errorMessage)
+        {
+            ErrorMessage = string.Copy(errorMessage);
+        }
+
+        #endregion
+
+        #region Properties
+
+        public string ErrorMessage { get; }
+
+        #endregion
     }
 }

@@ -67,19 +67,23 @@ namespace MyMediaRenamer.Core
 
         #region Methods
 
-        public async void ExecuteAll(IEnumerable<MediaFile> mediaFiles, IEnumerable<BaseTag> filePathTags)
+        public void Execute(IEnumerable<MediaFile> mediaFiles, IEnumerable<BaseTag> filePathTags)
         {
-            try
+            foreach (var mediaFile in mediaFiles)
             {
-                await Task.Run(() =>
+                ExecuteSingle(mediaFile, filePathTags);
+            }
+        }
+
+        public async void AsyncExecute(IEnumerable<MediaFile> mediaFiles, IEnumerable<BaseTag> filePathTags)
+        {
+            await Task.Run(() =>
                 {
                     foreach (var mediaFile in mediaFiles)
                     {
                         ExecuteSingle(mediaFile, filePathTags);
                     }
                 });
-            }
-            catch (Exception) { }
         }
 
         public void ExecuteSingle(MediaFile mediaFile, IEnumerable<BaseTag> filePathTags)
@@ -100,8 +104,7 @@ namespace MyMediaRenamer.Core
                 {
                     if (SkipOnNullTag)
                     {
-                        mediaFile.Status = MediaFileStatus.Error;
-                        mediaFile.ErrorMessage = $"Tag '{filePathTag}' could not produce a valid string!";
+                        mediaFile.ReportError($"Tag '{filePathTag}' could not produce a valid string!");
                         return false;
                     }
                     else

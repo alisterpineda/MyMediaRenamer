@@ -61,7 +61,7 @@ namespace MyMediaRenamer.Gui.ViewModels
 
         public void ExecuteAll(IEnumerable<MediaFileViewModel> mediaFiles, IEnumerable<BaseTag> Tags)
         {
-            _renamer.ExecuteAll(mediaFiles.Select(x => x.MediaFile), Tags);
+            _renamer.AsyncExecute(mediaFiles.Select(x => x.MediaFile), Tags);
         }
 
         #region ICommand Methods
