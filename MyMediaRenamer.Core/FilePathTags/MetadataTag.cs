@@ -10,7 +10,13 @@ namespace MyMediaRenamer.Core.FilePathTags
         ExifImageDescription,
         ExifMake,
         ExifModel,
-        ExifOrientation
+        ExifOrientation,
+        GpsLatitudeRef,
+        GpsLatitude,
+        GpsLongitudeRef,
+        GpsLongitude,
+        GpsAltitudeRef,
+        GpsAltitude
     }
 
     public class MetadataTag : BaseTag
@@ -21,7 +27,13 @@ namespace MyMediaRenamer.Core.FilePathTags
             { MetadataName.ExifImageDescription, ExifDirectoryBase.TagImageDescription },
             { MetadataName.ExifMake, ExifDirectoryBase.TagMake },
             { MetadataName.ExifModel, ExifDirectoryBase.TagModel },
-            { MetadataName.ExifOrientation, ExifDirectoryBase.TagOrientation }
+            { MetadataName.ExifOrientation, ExifDirectoryBase.TagOrientation },
+            { MetadataName.GpsLatitudeRef, GpsDirectory.TagLatitudeRef },
+            { MetadataName.GpsLatitude, GpsDirectory.TagLatitude },
+            { MetadataName.GpsLongitudeRef, GpsDirectory.TagLongitudeRef },
+            { MetadataName.GpsLongitude, GpsDirectory.TagDestLongitude },
+            { MetadataName.GpsAltitudeRef, GpsDirectory.TagAltitudeRef },
+            { MetadataName.GpsAltitude, GpsDirectory.TagAltitude }
         };
         #endregion
 
