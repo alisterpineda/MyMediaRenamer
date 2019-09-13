@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using MyMediaRenamer.Gui.ViewModels;
 
 namespace MyMediaRenamer.Gui.Views
@@ -20,6 +21,8 @@ namespace MyMediaRenamer.Gui.Views
             string[] filePaths = e.Data.GetData(DataFormats.FileDrop) as string[];
 
             vm.AddMediaFiles(filePaths);
+            
+            CommandManager.InvalidateRequerySuggested();
         }
     }
 }
