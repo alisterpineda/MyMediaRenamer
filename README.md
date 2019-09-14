@@ -12,6 +12,8 @@ MyMediaRenamer is a bulk renaming tool for video and image files using their emb
 
 ![WPF Example](/docs/wpf_example.gif)
 
+![Metadata Viewer Example](/docs/metadata_viewer_example.png)
+
 ### Console Application in .NET Core
 
 #### Windows (Powershell)
