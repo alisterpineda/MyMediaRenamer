@@ -5,9 +5,10 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     steps:
     - uses: actions/checkout@v1
     - name: Build GUI project
-      run: dotnet publish ${GITHUB_WORKSPACE}/MyMediaRenamer.Gui
+      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Gui
+      shell: powershell
