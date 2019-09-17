@@ -1,6 +1,11 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    paths:
+    - '*'
+    - '!/docs/*'
+    - 'README.md'
 
 jobs:
   tests:
