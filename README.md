@@ -1,5 +1,7 @@
 # MyMediaRenamer
 
+[![Actions Status](https://github.com/alisterpineda/MyMediaRenamer/workflows/CI/badge.svg)](https://github.com/alisterpineda/MyMediaRenamer/actions)
+
 MyMediaRenamer is a bulk renaming tool for video and image files using their embedded metadata (e.g. EXIF).
 
 ## Installation
