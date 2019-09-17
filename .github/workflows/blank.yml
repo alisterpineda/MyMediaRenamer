@@ -10,4 +10,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build GUI project
-      run: dotnet publish $GITHUB_WORKSPACE/MyMediaRenamer.Gui
+      run: dotnet publish ${GITHUB_WORKSPACE}/MyMediaRenamer.Gui
