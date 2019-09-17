@@ -9,6 +9,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Restore NuGet packages
+      working-directory: MyMediaRenamer.Gui
+      run: nuget restore
     - name: Build
       working-directory: MyMediaRenamer.Gui
       run: msbuild
@@ -18,7 +21,6 @@ jobs:
     strategy:
       matrix:
         runtime: [win10-x64, osx.10.12-x64, linux-x64]
-    
     steps:
     - uses: actions/checkout@v1
     - name: Build
