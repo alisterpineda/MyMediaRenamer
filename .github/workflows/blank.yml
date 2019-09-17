@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli -c Release -r ${{matrix.runtime}}
+      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli --self-contained -c Release -r ${{matrix.runtime}}
       shell: powershell
     - name: Upload artifacts
       uses: actions/upload-artifact@master
