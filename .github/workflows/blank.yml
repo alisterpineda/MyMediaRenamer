@@ -11,7 +11,7 @@ jobs:
     - uses: warrenbuckley/Setup-MSBuild@v1
     - name: Build
       working-directory: MyMediaRenamer.Gui
-      run: msbuild \t:Release
+      run: msbuild
   build-cli:
     name: Build CLI app
     runs-on: windows-latest
