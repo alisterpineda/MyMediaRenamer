@@ -15,6 +15,11 @@ jobs:
     - name: Build
       working-directory: MyMediaRenamer.Gui
       run: msbuild /p:Configuration=Release
+    - name: Upload artifacts
+      uses: actions/upload-artifact@master
+      with:
+        name: MyMediaRenamer.Gui
+        path: MyMediaRenamer.Gui/bin/Release
   build-cli:
     name: Build CLI app
     runs-on: windows-latest
@@ -29,5 +34,5 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@master
       with:
-        name: ${{matrix.runtime}}
+        name: MyMediaRenamer.Cli.${{matrix.runtime}}
         path: MyMediaRenamer.Cli/bin/Release/netcoreapp2.1/${{matrix.runtime}}/publish
