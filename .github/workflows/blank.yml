@@ -9,11 +9,12 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: warrenbuckley/Setup-MSBuild@v1
+    - run: | 
+        wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+        nuget restore
     - name: Build
       working-directory: MyMediaRenamer.Gui
-      run: |
-        dotnet restore
-        msbuild
+      run: msbuild
   build-cli:
     name: Build CLI app
     runs-on: windows-latest
