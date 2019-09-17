@@ -3,6 +3,15 @@ name: CI
 on: [push]
 
 jobs:
+  build-gui:
+    name: Build GUI app
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Build
+      working-directory: MyMediaRenamer.Gui
+      run: msbuild \t:Release
   build-cli:
     name: Build CLI app
     runs-on: windows-latest
