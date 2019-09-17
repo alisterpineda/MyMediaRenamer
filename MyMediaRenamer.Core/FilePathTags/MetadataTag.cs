@@ -129,20 +129,9 @@ namespace MyMediaRenamer.Core.FilePathTags
                    UseRaw.Equals(other.UseRaw);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hash = base.GetHashCode();
-                hash = hash * 13 + Name.GetHashCode();
-                hash = hash * 13 + UseRaw.GetHashCode();
-                return hash;
-            }
-        }
-
         public override string ToString()
         {
-            return $"MetadataTag :: {GetHashCode().ToString("x8")}";
+            return $"MetadataTag :: Name={Name}" + GetBasePartialToString();
         }
 
         protected override string GenerateString(Renamer renamer, MediaFile mediaFile)

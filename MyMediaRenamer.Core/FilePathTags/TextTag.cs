@@ -26,19 +26,9 @@
             return Text.Equals(other.Text);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hash = base.GetHashCode();
-                hash = hash * 13 + Text.GetHashCode();
-                return hash;
-            }
-        }
-
         public override string ToString()
         {
-            return $"Text :: '{Text}'";
+            return $"Text :: Text='{Text}'" + GetBasePartialToString();
         }
 
         protected override string GenerateString(Renamer renamer, MediaFile mediaFile)

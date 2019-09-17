@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace MyMediaRenamer.Core.FilePathTags
 {
@@ -69,16 +70,6 @@ namespace MyMediaRenamer.Core.FilePathTags
             return MaxLength.Equals(other.MaxLength);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hash = 7;
-                hash = hash * 13 + MaxLength.GetHashCode();
-                return hash;
-            }
-        }
-
         public string GetString(Renamer renamer, MediaFile mediaFile)
         {
             string generatedString = GenerateString(renamer, mediaFile);
@@ -87,6 +78,16 @@ namespace MyMediaRenamer.Core.FilePathTags
                 generatedString = generatedString.Substring(0, MaxLength.GetValueOrDefault());
 
             return generatedString;
+        }
+
+        protected string GetBasePartialToString()
+        {
+            var str = new StringBuilder();
+
+            if (MaxLength.HasValue)
+                str.Append($",MaxLength='{MaxLength}'");
+
+            return str.ToString();
         }
 
         private Dictionary<string, string> ParseTagOptionsString(string tagOptions)

@@ -37,19 +37,9 @@ namespace MyMediaRenamer.Core.FilePathTags
             return Format.Equals(other.Format);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hash = base.GetHashCode();
-                hash = hash * 13 + Format.GetHashCode();
-                return hash;
-            }
-        }
-
         public override string ToString()
         {
-            return $"DateTimeTag :: '{Format}'";
+            return $"DateTimeTag :: Format='{Format}'" + GetBasePartialToString();
         }
 
         protected override string GenerateString(Renamer renamer, MediaFile mediaFile)

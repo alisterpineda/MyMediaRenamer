@@ -49,19 +49,9 @@ namespace MyMediaRenamer.Core.FilePathTags
             return Algorithm.Equals(other.Algorithm);
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                int hash = base.GetHashCode();
-                hash = hash * 13 + Algorithm.GetHashCode();
-                return hash;
-            }
-        }
-
         public override string ToString()
         {
-            return $"HashTag :: '{Algorithm}'";
+            return $"HashTag :: Algorithm='{Algorithm}'" + GetBasePartialToString();
         }
 
         protected override string GenerateString(Renamer renamer, MediaFile mediaFile)
