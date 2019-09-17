@@ -3,7 +3,8 @@ name: CI
 on: [push]
 
 jobs:
-  build:
+  build-cli:
+    name: Build CLI app
     runs-on: windows-latest
     strategy:
       matrix:
