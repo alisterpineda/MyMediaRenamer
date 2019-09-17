@@ -12,7 +12,7 @@
         <CollectionViewSource x:Key="TagsCVS"
                               Source="{Binding Tags}">
             <CollectionViewSource.GroupDescriptions>
-                <dat:PropertyGroupDescription PropertyName="DirectoryName "/>
+                <dat:PropertyGroupDescription PropertyName="DirectoryName"/>
             </CollectionViewSource.GroupDescriptions>
         </CollectionViewSource>
     </UserControl.Resources>
@@ -24,7 +24,7 @@
                     <GridViewColumn Header="Tag Name"
                                     DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Value"
-                                    DisplayMemberBinding="{Binding Description}"/>
+                                    DisplayMemberBinding="{Binding Value}"/>
                 </GridView>
             </ListView.View>
             <ListView.GroupStyle>
@@ -49,6 +49,24 @@
                     </GroupStyle.ContainerStyle>
                 </GroupStyle>
             </ListView.GroupStyle>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="Copy...">
+                                    <MenuItem Header="Tag Name"
+                                              Command="{Binding CopyTagNameToClipboardCommand}"/>
+                                    <MenuItem Header="Value"
+                                              Command="{Binding CopyValueToClipboardCommand}"/>
+                                    <MenuItem Header="Value (Raw)"
+                                              Command="{Binding CopyValueRawToClipboardCommand}"/>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
     </Grid>
 </UserControl>

@@ -19,7 +19,7 @@ namespace MyMediaRenamer.Gui.ViewModels
             {
                 foreach (var tag in directory.Tags)
                 {
-                    Tags.Add(tag);
+                    Tags.Add(new TagViewModel(directory, tag));
                 }
             }
         }
@@ -29,7 +29,7 @@ namespace MyMediaRenamer.Gui.ViewModels
         #region Properties
 
         public string FilePath => _mediaFileViewModel.FilePath;
-        public List<Tag> Tags { get; } = new List<Tag>();
+        public List<TagViewModel> Tags { get; } = new List<TagViewModel>();
 
         #endregion
     }

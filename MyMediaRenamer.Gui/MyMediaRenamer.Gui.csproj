@@ -69,6 +69,7 @@
     <Compile Include="Utilities\WindowService\RenamerSettingsDialogService.cs" />
     <Compile Include="ViewModels\MetadataViewerViewModel.cs" />
     <Compile Include="ViewModels\RenamerViewModel.cs" />
+    <Compile Include="ViewModels\TagViewModel.cs" />
     <Compile Include="Views\AboutDialogWindow.xaml.cs">
       <DependentUpon>AboutDialogWindow.xaml</DependentUpon>
     </Compile>
