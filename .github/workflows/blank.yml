@@ -14,7 +14,7 @@ jobs:
       run: nuget restore
     - name: Build
       working-directory: MyMediaRenamer.Gui
-      run: msbuild
+      run: msbuild /p:Configuration=Release
   build-cli:
     name: Build CLI app
     runs-on: windows-latest
