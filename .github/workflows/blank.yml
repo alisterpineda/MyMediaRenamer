@@ -9,6 +9,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Build GUI project
-      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Gui
+    - name: Build CLI binary for Windows
+      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli -r win10-x64
+      shell: powershell
+    - name: Build CLI binary for MacOS 10.12
+      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli -r osx.10.12-x64
+      shell: powershell
+    - name: Build CLI binary for Linux
+      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli -r linux-x64
       shell: powershell
