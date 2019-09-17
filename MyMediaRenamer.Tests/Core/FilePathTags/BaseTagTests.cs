@@ -6,12 +6,14 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
 {
     public class BaseTagTests : BaseTestFixture
     {
-        private static string testString = "abcdefghijklmnopqrstuvwxyz";
+        private static string testString = " abcdefghijklmNOPQRSTUVWXYZ ";
 
         private static object[] GetStringCases =
         {
             new object[] { new TextTag(), testString },
-            new object[] { new TextTag{MaxLength = 3}, testString.Substring(0,3) }
+            new object[] { new TextTag{MaxLength = 3}, testString.Substring(0,3) },
+            new object[] { new TextTag{ForceCase = ForceCase.Lower}, testString.ToLower() },
+            new object[] { new TextTag{ForceCase = ForceCase.Upper}, testString.ToUpper() }
         };
 
         [TestCaseSource(nameof(GetStringCases))]

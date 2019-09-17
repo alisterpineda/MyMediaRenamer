@@ -6,6 +6,12 @@ using System.Text;
 
 namespace MyMediaRenamer.Core.FilePathTags
 {
+    public enum ForceCase
+    {
+        Lower,
+        Upper
+    }
+
     public abstract class BaseTag
     {
         #region Constructors
@@ -54,6 +60,7 @@ namespace MyMediaRenamer.Core.FilePathTags
         #region Properties
 
         public int? MaxLength { get; set; } = null;
+        public ForceCase? ForceCase { get; set; } = null;
 
         #endregion
 
@@ -77,6 +84,18 @@ namespace MyMediaRenamer.Core.FilePathTags
             if (MaxLength.HasValue)
                 generatedString = generatedString.Substring(0, MaxLength.GetValueOrDefault());
 
+            if (ForceCase.HasValue)
+                switch (ForceCase)
+                {
+                    case FilePathTags.ForceCase.Lower:
+                        generatedString = generatedString.ToLower();
+                        break;
+                    case FilePathTags.ForceCase.Upper:
+                        generatedString = generatedString.ToUpper();
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
             return generatedString;
         }
 
@@ -86,6 +105,8 @@ namespace MyMediaRenamer.Core.FilePathTags
 
             if (MaxLength.HasValue)
                 str.Append($",MaxLength='{MaxLength}'");
+            if (ForceCase.HasValue)
+                str.Append($",ForceCase='{ForceCase}'");
 
             return str.ToString();
         }
