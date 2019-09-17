@@ -18,5 +18,4 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: ${{matrix.runtime}}
-        path: ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli/bin/Release/netcoreapp2.1/${{matrix.runtime}}/publish
-      shell: powershell
+        path: ${GITHUB_WORKSPACE}/MyMediaRenamer.Cli/bin/Release/netcoreapp2.1/${{matrix.runtime}}/publish
