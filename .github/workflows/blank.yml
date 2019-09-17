@@ -3,8 +3,16 @@ name: CI
 on: [push]
 
 jobs:
+  tests:
+    name: Tests
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: dotnet test
+      working-directory: MyMediaRenamer.Tests
   build-gui:
     name: Build GUI app
+    needs: tests
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
@@ -22,6 +30,7 @@ jobs:
         path: MyMediaRenamer.Gui/bin/Release
   build-cli:
     name: Build CLI app
+    needs: tests
     runs-on: windows-latest
     strategy:
       matrix:
