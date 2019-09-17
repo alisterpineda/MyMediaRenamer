@@ -11,7 +11,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Build CLI binary for ${{matrix.runtime}}
+    - name: Build
       run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli -c Release -r ${{matrix.runtime}}
       shell: powershell
     - name: Upload artifacts
@@ -19,3 +19,4 @@ jobs:
       with:
         name: ${{matrix.runtime}}
         path: ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli/bin/Release/netcoreapp2.1/${{matrix.runtime}}/publish
+      shell: powershell
