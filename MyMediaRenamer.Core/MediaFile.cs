@@ -87,7 +87,9 @@ namespace MyMediaRenamer.Core
                 if (_metadataDirectories == null)
                 {
                     using (var stream = GetStream())
-                        MetadataDirectories = ImageMetadataReader.ReadMetadata(stream);
+                    {
+                        MetadataDirectories = FileTypeDetector.DetectFileType(stream) != FileType.Unknown ? ImageMetadataReader.ReadMetadata(stream) : new List<Directory>();
+                    }
                 }
 
                 return _metadataDirectories;
