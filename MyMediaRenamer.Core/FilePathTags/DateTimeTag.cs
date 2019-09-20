@@ -39,7 +39,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         public override string ToString()
         {
-            return $"DateTimeTag :: Format='{Format}'" + GetBasePartialToString();
+            return $"[DateTimeTag :: Format='{Format}'{GetBasePartialToString()}]";
         }
 
         protected override string GenerateString(Renamer renamer, MediaFile mediaFile)

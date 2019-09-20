@@ -28,7 +28,7 @@
 
         public override string ToString()
         {
-            return $"TextTag :: Text='{Text}'" + GetBasePartialToString();
+            return $"[TextTag :: Text='{Text}'{GetBasePartialToString()}]";
         }
 
         protected override string GenerateString(Renamer renamer, MediaFile mediaFile)

@@ -53,7 +53,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         public override string ToString()
         {
-            return $"IncrementTag :: Reference='{Reference}',Start='{Start}',Step='{Step}',Format='{Format}'" + GetBasePartialToString();
+            return $"[IncrementTag :: Reference='{Reference}',Start='{Start}',Step='{Step}',Format='{Format}'{GetBasePartialToString()}]";
         }
 
         protected override string GenerateString(Renamer renamer, MediaFile mediaFile)

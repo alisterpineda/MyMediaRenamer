@@ -51,7 +51,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         public override string ToString()
         {
-            return $"HashTag :: Algorithm='{Algorithm}'" + GetBasePartialToString();
+            return $"[HashTag :: Algorithm='{Algorithm}'{GetBasePartialToString()}]";
         }
 
         protected override string GenerateString(Renamer renamer, MediaFile mediaFile)

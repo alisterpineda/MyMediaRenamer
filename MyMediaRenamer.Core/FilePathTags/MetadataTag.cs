@@ -131,7 +131,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         public override string ToString()
         {
-            return $"MetadataTag :: Name={Name}" + GetBasePartialToString();
+            return $"[MetadataTag :: Name={Name}{GetBasePartialToString()}]";
         }
 
         protected override string GenerateString(Renamer renamer, MediaFile mediaFile)
