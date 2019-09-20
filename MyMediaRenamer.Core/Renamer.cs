@@ -13,6 +13,7 @@ namespace MyMediaRenamer.Core
     {
         #region Members
 
+        private bool _testMode = false;
         private bool _preserveExtension = true;
         private bool _skipOnNullTag = false;
         private string _nullTagString = "null";
@@ -20,6 +21,20 @@ namespace MyMediaRenamer.Core
         #endregion
 
         #region Properties
+
+        public bool TestMode
+        {
+            get => _testMode;
+            set
+            {
+                if (value == _testMode)
+                    return;
+
+                _testMode = value;
+
+                OnPropertyChanged(nameof(TestMode));
+            }
+        }
 
         public bool PreserveExtension
         {
@@ -89,7 +104,7 @@ namespace MyMediaRenamer.Core
         public void ExecuteSingle(MediaFile mediaFile, IEnumerable<BaseTag> filePathTags)
         {
             if(TryGetNewFilePath(mediaFile, filePathTags, out string newFilePath))
-                mediaFile.Rename(newFilePath);
+                mediaFile.Rename(newFilePath, TestMode);
         }
 
         public bool TryGetNewFilePath(MediaFile mediaFile, IEnumerable<BaseTag> filePathTags, out string newFilePath)

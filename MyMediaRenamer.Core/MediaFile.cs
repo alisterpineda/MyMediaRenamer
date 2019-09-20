@@ -136,7 +136,7 @@ namespace MyMediaRenamer.Core
 
         #region Methods
 
-        public void Rename(string newFilePath)
+        public void Rename(string newFilePath, bool testMode = false)
         {
             string target = newFilePath;
             int i = 0;
@@ -151,9 +151,10 @@ namespace MyMediaRenamer.Core
                     target = Path.Combine( Path.GetDirectoryName(newFilePath), Path.GetFileNameWithoutExtension(newFilePath) + $" ({i})" + Path.GetExtension(newFilePath));
                 }
 
-                FileSystem.File.Move(FilePath, target);
+                if (!testMode)
+                    FileSystem.File.Move(FilePath, target);
 
-                OnRenamed(FilePath, target);
+                OnRenamed(FilePath, target, testMode);
 
                 FilePath = target;
                 Status = MediaFileStatus.Done;
@@ -189,9 +190,9 @@ namespace MyMediaRenamer.Core
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        protected virtual void OnRenamed(string oldFilePath, string newFilePath)
+        protected virtual void OnRenamed(string oldFilePath, string newFilePath, bool testMode)
         {
-            Renamed?.Invoke(this, new MediaFileRenamedArgs(oldFilePath, newFilePath));
+            Renamed?.Invoke(this, new MediaFileRenamedArgs(oldFilePath, newFilePath, testMode));
         }
 
         protected virtual void OnErrorReported(string errorMessage)
@@ -204,10 +205,11 @@ namespace MyMediaRenamer.Core
     {
         #region Constructors
 
-        public MediaFileRenamedArgs(string oldFilePath, string newFilePath)
+        public MediaFileRenamedArgs(string oldFilePath, string newFilePath, bool testMode)
         {
             OldFilePath = string.Copy(oldFilePath);
             NewFilePath = string.Copy(newFilePath);
+            TestMode = testMode;
         }
 
         #endregion
@@ -216,6 +218,8 @@ namespace MyMediaRenamer.Core
 
         public string OldFilePath { get; }
         public string NewFilePath { get; }
+
+        public bool TestMode { get; }
 
         #endregion
     }

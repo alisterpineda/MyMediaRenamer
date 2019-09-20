@@ -23,6 +23,7 @@ namespace MyMediaRenamer.Cli
 
             var defaultStringOption = app.Option("--default-string", "The default string used when a tag fails to produce a valid string", CommandOptionType.SingleValue);
             var skipNullOption = app.Option("--skip-null", "Skip renaming a file if a tag fails to produce a valid string.", CommandOptionType.NoValue);
+            var testOption = app.Option("-t|--test", "Do a dry-run where the program does not actually rename any files.", CommandOptionType.NoValue);
             
 
             var patternArgument = app.Argument("File Name Pattern", "Pattern used to determine the new file name of each file.", false);
@@ -37,13 +38,11 @@ namespace MyMediaRenamer.Cli
                 }
 
                 if (defaultStringOption.HasValue())
-                {
                     Renamer.NullTagString = defaultStringOption.Value();
-                }
                 if (skipNullOption.HasValue())
-                {
                     Renamer.SkipOnNullTag = true;
-                }
+                if (testOption.HasValue())
+                    Renamer.TestMode = true;
 
                 try
                 {
@@ -80,7 +79,12 @@ namespace MyMediaRenamer.Cli
 
         private static void MediaFile_Renamed(object sender, MediaFileRenamedArgs e)
         {
-            Console.WriteLine($"'{e.OldFilePath}' -> '{e.NewFilePath}'");
+            var output = $"'{e.OldFilePath}' -> '{e.NewFilePath}'";
+
+            if (e.TestMode)
+                output = $"[TEST] {output}";
+
+            Console.WriteLine(output);
         }
 
         private static void MediaFile_ErrorReported(object sender, MediaFileErrorReportedArgs e)
