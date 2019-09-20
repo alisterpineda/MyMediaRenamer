@@ -21,6 +21,10 @@ namespace MyMediaRenamer.Cli
 
             app.HelpOption("-h|--help");
 
+            var defaultStringOption = app.Option("--default-string", "The default string used when a tag fails to produce a valid string", CommandOptionType.SingleValue);
+            var skipNullOption = app.Option("--skip-null", "Skip renaming a file if a tag fails to produce a valid string.", CommandOptionType.NoValue);
+            
+
             var patternArgument = app.Argument("File Name Pattern", "Pattern used to determine the new file name of each file.", false);
             var filesArgument = app.Argument("Media Files", "File(s) to rename.", true);
 
@@ -30,6 +34,15 @@ namespace MyMediaRenamer.Cli
                 {
                     app.ShowHint();
                     returnCode = 1;
+                }
+
+                if (defaultStringOption.HasValue())
+                {
+                    Renamer.NullTagString = defaultStringOption.Value();
+                }
+                if (skipNullOption.HasValue())
+                {
+                    Renamer.SkipOnNullTag = true;
                 }
 
                 try
