@@ -39,6 +39,18 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         #region Methods
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is IncrementTag other))
+                return false;
+
+            return base.Equals(obj) &&
+                   Reference.Equals(other.Reference) &&
+                   Start.Equals(other.Start) &&
+                   Step.Equals(other.Step) &&
+                   Format.Equals(other.Format);
+        }
+
         public override string ToString()
         {
             return $"IncrementTag :: Reference='{Reference}',Start='{Start}',Step='{Step}',Format='{Format}'" + GetBasePartialToString();
