@@ -17,6 +17,8 @@ namespace MyMediaRenamer.Tests.Core
             new object[] { "<hash|algorithm=sha256>", new HashTag{Algorithm = Algorithm.SHA256} },
             new object[] { "<hash|algorithm=sha384>", new HashTag{Algorithm = Algorithm.SHA384} },
             new object[] { "<hash|algorithm=sha512>", new HashTag{Algorithm = Algorithm.SHA512} },
+            new object[] { "<inc>", new IncrementTag() },
+            new object[] { "<inc|reference=directory/start=101/step=5/format=X>", new IncrementTag{Reference = IncrementReference.Directory, Start = 101, Step = 5, Format = "X"}},
             new object[] { "<meta>", new MetadataTag() },
             new object[] { "<meta|Name=ExifOrientation>", new MetadataTag{Name = MetadataName.ExifOrientation} },
             new object[] { "<meta|Name=ExifOrientation/UseRaw=true>", new MetadataTag{Name = MetadataName.ExifOrientation, UseRaw = true} },

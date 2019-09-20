@@ -18,6 +18,7 @@ namespace MyMediaRenamer.Core
         {
             { "datetime", (tagOptionsString) => new DateTimeTag(tagOptionsString) },
             { "hash", (tagOptionsString) => new HashTag(tagOptionsString) },
+            { "inc", (tagOptionsString) => new IncrementTag(tagOptionsString) },
             { "meta", (tagOptionsString) => new MetadataTag(tagOptionsString) },
             { "name", (tagOptionsString) => new NameTag(tagOptionsString) },
             // Shortcuts

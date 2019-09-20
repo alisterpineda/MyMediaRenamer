@@ -6,8 +6,7 @@ namespace MyMediaRenamer.Tests
 {
     public abstract class BaseTestFixture
     {
-        protected static readonly Renamer TestRenamer = new Renamer();
-        protected static string TestDataFolderName = "Test Data";
+        protected const string TestDataFolderName = "Test Data";
 
         #region Android
 
@@ -26,6 +25,8 @@ namespace MyMediaRenamer.Tests
 
         protected const string TextFile = "text.txt";
 
+        protected static Renamer TestRenamer;
+
         #region Properties
 
         protected static string TestDataDirectory => Path.Combine(TestContext.CurrentContext.TestDirectory, "Test Data");
@@ -39,6 +40,8 @@ namespace MyMediaRenamer.Tests
         [SetUp]
         public void SetUp()
         {
+            TestRenamer = new Renamer();
+
             if (!Directory.Exists(TempDataDirectory))
                 Directory.CreateDirectory(TempDataDirectory);
         }

@@ -40,6 +40,10 @@ namespace MyMediaRenamer.Core.FilePathTags
                 {
                     property.SetValue(this, int.Parse(option.Value));
                 }
+                else if (property.PropertyType == typeof(uint))
+                {
+                    property.SetValue(this, uint.Parse(option.Value));
+                }
                 else if (property.PropertyType == typeof(bool))
                 {
                     property.SetValue(this, bool.Parse(option.Value));
