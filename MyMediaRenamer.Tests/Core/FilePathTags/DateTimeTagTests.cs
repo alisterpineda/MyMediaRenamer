@@ -8,6 +8,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
     {
         private static object[] GetStringCases =
         {
+            new object[] {TextFile, new DateTimeTag(), null},
             new object[] {AndroidPhoto, new DateTimeTag(), @"2016-06-17 13:07:00Z" },
             new object[] {IosPhoto, new DateTimeTag(), @"2017-08-26 16:00:19Z" },
             new object[] {IosVideoMp4, new DateTimeTag(), @"2014-05-24 07:17:35Z"},

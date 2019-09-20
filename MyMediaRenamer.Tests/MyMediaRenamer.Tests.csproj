@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Test Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MyMediaRenamer.Core\MyMediaRenamer.Core.csproj" />
   </ItemGroup>
 
@@ -36,6 +32,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Test Data\ios_video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Test Data\text.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -11,20 +11,20 @@ namespace MyMediaRenamer.Tests
 
         #region Android
 
-        protected static string AndroidPhoto = "android_photo.jpg";
-
-        protected static string AndroidVideoMp4 = "android_video.mp4";
+        protected const string AndroidPhoto = "android_photo.jpg";
+        protected const string AndroidVideoMp4 = "android_video.mp4";
 
         #endregion
 
         #region iOS
 
-        protected static string IosPhoto = "ios_photo.jpg";
-
-        protected static string IosVideoMp4 = "ios_video.mp4";
-        protected static string IosVideoMov = "ios_video.mov";
+        protected const string IosPhoto = "ios_photo.jpg";
+        protected const string IosVideoMp4 = "ios_video.mp4";
+        protected const string IosVideoMov = "ios_video.mov";
 
         #endregion
+
+        protected const string TextFile = "text.txt";
 
         #region Properties
 
