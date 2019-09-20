@@ -74,7 +74,7 @@ namespace MyMediaRenamer.Cli
         {
             MediaFile mediaFile = sender as MediaFile;
 
-            Console.WriteLine($"Error occured while trying to rename '{mediaFile.FilePath}'\nReason:\n{e.ErrorMessage}");
+            Console.WriteLine($"Error occured while trying to rename '{mediaFile.FilePath}'. Reason: {e.ErrorMessage}");
             returnCode = 1;
         }
     }
