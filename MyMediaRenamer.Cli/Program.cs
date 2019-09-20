@@ -52,7 +52,9 @@ namespace MyMediaRenamer.Cli
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.Error.WriteLine("Program has encountered an unexpected error!\n");
+                    Console.Error.WriteLine($"Message:\n\n{e.Message}\n");
+                    Console.Error.WriteLine($"Stack Trace:\n\n{e.StackTrace}\n");
                     returnCode = 1;
                 }
 
