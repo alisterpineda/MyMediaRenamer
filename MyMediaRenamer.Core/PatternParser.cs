@@ -88,8 +88,8 @@ namespace MyMediaRenamer.Core
             Match match = _regexCustomToken.Match(tagPattern);
             if (match.Success)
             {
-                tagType = match.Groups[1].ToString();
-                tagOptionsString = match.Groups[2].ToString();
+                tagType = match.Groups[1].Value;
+                tagOptionsString = match.Groups[2].Value;
             }
 
             try

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MyMediaRenamer.Core.FilePathTags
 {
@@ -14,6 +16,12 @@ namespace MyMediaRenamer.Core.FilePathTags
 
     public abstract class BaseTag
     {
+        #region Members
+
+        private static readonly Regex _optionValuePairRegex = new Regex(@"(\b\w+)=[\""\'](.*?(?=[\""\']\s\w+=|[\""\']$))");
+
+        #endregion
+
         #region Constructors
 
         protected BaseTag(string tagOptionsString = null)
@@ -122,14 +130,20 @@ namespace MyMediaRenamer.Core.FilePathTags
         {
             try
             {
-                if (string.IsNullOrEmpty(tagOptions))
-                    return new Dictionary<string, string>();
+                Dictionary<string, string> optionValuePairs = new Dictionary<string, string>();
 
-                return tagOptions.Split(' ')
-                    .Select(x => x.Split('='))
-                    .ToDictionary(x => x[0], x => x[1]);
+                if (string.IsNullOrEmpty(tagOptions))
+                    return optionValuePairs;
+
+                var matches = _optionValuePairRegex.Matches(tagOptions);
+                foreach (Match match in matches)
+                {
+                    optionValuePairs.Add(match.Groups[1].Value, match.Groups[2].Value);
+                }
+
+                return optionValuePairs;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new PatternInvalidException($"Parser could not process the option-value pairs provided: '{tagOptions}'.");
             }
