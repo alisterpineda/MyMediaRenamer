@@ -22,7 +22,10 @@ namespace MyMediaRenamer.Core.FilePathTags
             {
                 PropertyInfo property = this.GetType().GetProperty(option.Key, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
                 if (property == null)
-                    throw new ArgumentException($"Invalid option key: '{option.Key}'");
+                    throw new PatternInvalidException($"Invalid tag option: '{option.Key}'.");
+
+                if (string.IsNullOrEmpty(option.Value))
+                    throw new PatternInvalidException($"Value for option '{option.Key}' is empty.");
 
                 if (property.PropertyType.IsEnum)
                 {
@@ -31,7 +34,7 @@ namespace MyMediaRenamer.Core.FilePathTags
                         .Invoke(this, new object[] {property, option.Value}) is bool validEnum)
                     {
                         if (!validEnum)
-                            throw new ArgumentException($"Invalid option value: '{option.Value}'");
+                            throw new PatternInvalidException($"Value for option '{option.Key}' is invalid.");
                     }
                     else
                         throw new InvalidOperationException();
@@ -117,12 +120,19 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         private Dictionary<string, string> ParseTagOptionsString(string tagOptions)
         {
-            if (string.IsNullOrEmpty(tagOptions))
-                return new Dictionary<string, string>();
+            try
+            {
+                if (string.IsNullOrEmpty(tagOptions))
+                    return new Dictionary<string, string>();
 
-            return tagOptions.Split('/')
-                .Select(x => x.Split('='))
-                .ToDictionary(x => x[0], x => x[1]);
+                return tagOptions.Split('/')
+                    .Select(x => x.Split('='))
+                    .ToDictionary(x => x[0], x => x[1]);
+            }
+            catch (Exception e)
+            {
+                throw new PatternInvalidException($"Parser could not process the option-value pairs provided: '{tagOptions}'.");
+            }
 
         }
 

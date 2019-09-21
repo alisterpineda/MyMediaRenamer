@@ -50,11 +50,14 @@ namespace MyMediaRenamer.Cli
                     var mediaFiles = GetMediaFilesFromStrings(filesArgument.Values);
                     Renamer.Execute(mediaFiles, tags);
                 }
+                catch (PatternInvalidException e)
+                {
+                    WriteError("Pattern provided by the user is invalid.", e, false);
+                    returnCode = 1;
+                }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine("Program has encountered an unexpected error!\n");
-                    Console.Error.WriteLine($"Message:\n\n{e.Message}\n");
-                    Console.Error.WriteLine($"Stack Trace:\n\n{e.StackTrace}\n");
+                    WriteError("Program has encountered an unexpected error!\n", e, true);
                     returnCode = 1;
                 }
 
@@ -64,7 +67,7 @@ namespace MyMediaRenamer.Cli
             return app.Execute(args);
         }
 
-        internal static IList<MediaFile> GetMediaFilesFromStrings(IList<string> filePaths)
+        private static IList<MediaFile> GetMediaFilesFromStrings(IList<string> filePaths)
         {
             List<MediaFile> mediaFiles = new List<MediaFile>();
 
@@ -77,6 +80,14 @@ namespace MyMediaRenamer.Cli
             }
 
             return mediaFiles;
+        }
+
+        private static void WriteError(string header, Exception exception, bool showStackTrace)
+        {
+            Console.Error.WriteLine(header + '\n');
+            Console.Error.WriteLine($"Message:\n\n{exception.Message}\n");
+            if (showStackTrace)
+                Console.Error.WriteLine($"Stack Trace:\n\n{exception.StackTrace}\n");
         }
 
         private static void MediaFile_Renamed(object sender, MediaFileRenamedArgs e)

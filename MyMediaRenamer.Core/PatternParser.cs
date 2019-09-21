@@ -10,8 +10,8 @@ namespace MyMediaRenamer.Core
     {
         #region Members
 
-        private const string missingTokenOpener = "Missing closing '<'";
-        private const string missingTokenCloser = "Missing closing '>'";
+        private const string MissingTokenOpener = "Missing closing '<'.";
+        private const string MissingTokenCloser = "Missing closing '>'.";
 
         private static readonly Regex _regexCustomToken = new Regex("^(.*)\\|(.*)");
         private static readonly Dictionary<string, Func<string, BaseTag>> FilePathTagLookup = new Dictionary<string, Func<string, BaseTag>>
@@ -50,7 +50,7 @@ namespace MyMediaRenamer.Core
 
                     }
                     else if (i == pattern.Length - 1)
-                        throw new FormatException(missingTokenCloser);
+                        throw new PatternInvalidException(MissingTokenCloser);
                     else
                         buffer.Append(pattern[i]);
                 }
@@ -59,23 +59,23 @@ namespace MyMediaRenamer.Core
                     if (pattern[i] == '<')
                     {
                         if (i == pattern.Length - 1)
-                            throw new FormatException(missingTokenCloser);
+                            throw new PatternInvalidException(MissingTokenCloser);
 
                         tagMode = true;
 
                         if (buffer.Length > 0)
-                            tags.Add(new TextTag{Text = buffer.ToString()});
+                            tags.Add(new TextTag { Text = buffer.ToString() });
                         buffer.Clear();
                     }
                     else if (pattern[i] == '>')
-                        throw new FormatException(missingTokenOpener);
+                        throw new PatternInvalidException(MissingTokenOpener);
                     else
                         buffer.Append(pattern[i]);
                 }
             }
 
             if (buffer.Length > 0)
-                tags.Add(new TextTag{Text = buffer.ToString()});
+                tags.Add(new TextTag { Text = buffer.ToString() });
 
             return tags;
         }
@@ -98,7 +98,7 @@ namespace MyMediaRenamer.Core
             }
             catch (KeyNotFoundException)
             {
-                throw new FormatException($"Invalid tag type: '{tagType}'");
+                throw new PatternInvalidException($"Invalid tag type: '{tagType}'");
             }
         }
 
