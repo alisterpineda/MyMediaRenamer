@@ -125,7 +125,7 @@ namespace MyMediaRenamer.Core.FilePathTags
                 if (string.IsNullOrEmpty(tagOptions))
                     return new Dictionary<string, string>();
 
-                return tagOptions.Split('/')
+                return tagOptions.Split(' ')
                     .Select(x => x.Split('='))
                     .ToDictionary(x => x[0], x => x[1]);
             }

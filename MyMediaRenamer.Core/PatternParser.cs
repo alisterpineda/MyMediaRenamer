@@ -13,7 +13,7 @@ namespace MyMediaRenamer.Core
         private const string MissingTokenOpener = "Missing closing '<'.";
         private const string MissingTokenCloser = "Missing closing '>'.";
 
-        private static readonly Regex _regexCustomToken = new Regex("^(.*)\\|(.*)");
+        private static readonly Regex _regexCustomToken = new Regex("^(\\S*) (.*)");
         private static readonly Dictionary<string, Func<string, BaseTag>> FilePathTagLookup = new Dictionary<string, Func<string, BaseTag>>
         {
             { "datetime", (tagOptionsString) => new DateTimeTag(tagOptionsString) },
