@@ -47,4 +47,4 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: MyMediaRenamer.Cli.${{matrix.runtime}}
-        path: MyMediaRenamer.Cli/bin/Release/netcoreapp2.1/${{matrix.runtime}}/publish
+        path: MyMediaRenamer.Cli/bin/Release/netcoreapp3.0/${{matrix.runtime}}/publish
