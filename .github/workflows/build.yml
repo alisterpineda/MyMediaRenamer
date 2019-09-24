@@ -37,6 +37,9 @@ jobs:
         runtime: [win10-x64, osx.10.12-x64, linux-x64]
     steps:
     - uses: actions/checkout@v1
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.0.100'
     - name: Build
       run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli -c Release -r ${{matrix.runtime}} /p:PublishSingleFile=true /p:PublishTrimmed=true
       shell: powershell
