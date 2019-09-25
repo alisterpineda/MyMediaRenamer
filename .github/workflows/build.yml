@@ -16,16 +16,14 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '3.0.100'
     - uses: warrenbuckley/Setup-MSBuild@v1
     - uses: warrenbuckley/Setup-Nuget@v1
     - name: Restore NuGet packages
       run: nuget restore
+      working-directory: MyMediaRenamer.Gui
     - name: Build
       working-directory: MyMediaRenamer.Gui
-      run: msbuild /p:Configuration=Release
+      run: msbuild MyMediaRenamer.Gui.csproj /p:Configuration=Release
     - name: Upload artifacts
       uses: actions/upload-artifact@master
       with:
@@ -44,7 +42,7 @@ jobs:
       with:
         dotnet-version: '3.0.100'
     - name: Build
-      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli -c Release -r ${{matrix.runtime}} /p:PublishSingleFile=true /p:PublishTrimmed=true
+      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli/MyMediaRenamer.Cli.csproj -c Release -r ${{matrix.runtime}} /p:PublishSingleFile=true /p:PublishTrimmed=true
       shell: powershell
     - name: Upload artifacts
       uses: actions/upload-artifact@master
