@@ -16,13 +16,11 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '3.0.100'
     - uses: warrenbuckley/Setup-MSBuild@v1
     - uses: warrenbuckley/Setup-Nuget@v1
     - name: Restore NuGet packages
       run: nuget restore
+      working-directory: MyMediaRenamer.Gui
     - name: Build
       working-directory: MyMediaRenamer.Gui
       run: msbuild /p:Configuration=Release
