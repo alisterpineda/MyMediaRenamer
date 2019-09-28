@@ -23,7 +23,7 @@ namespace MyMediaRenamer.Cli
 
             var defaultStringOption = app.Option("--default-string", "The default string used when a tag fails to produce a valid string", CommandOptionType.SingleValue);
             var skipNullOption = app.Option("--skip-null", "Skip renaming a file if a tag fails to produce a valid string.", CommandOptionType.NoValue);
-            var testOption = app.Option("-t|--test", "Do a dry-run where the program does not actually rename any files.", CommandOptionType.NoValue);
+            var testOption = app.Option("-d|--dry-run", "Do a dry-run where the program does not actually rename any files.", CommandOptionType.NoValue);
             
 
             var patternArgument = app.Argument("File Name Pattern", "Pattern used to determine the new file name of each file.", false);
@@ -42,7 +42,7 @@ namespace MyMediaRenamer.Cli
                 if (skipNullOption.HasValue())
                     Renamer.SkipOnNullTag = true;
                 if (testOption.HasValue())
-                    Renamer.TestMode = true;
+                    Renamer.DryRun = true;
 
                 try
                 {
