@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.CommandLineUtils;
 using MyMediaRenamer.Core;
@@ -11,7 +13,8 @@ namespace MyMediaRenamer.Cli
     internal static class Program
     {
         private static readonly Renamer Renamer = new Renamer();
-        private static int returnCode = 0;
+        private static readonly List<MediaFile> MediaFiles = new List<MediaFile>();
+        private static int _returnCode = 0;
 
         internal static int Main(string[] args)
         {
@@ -22,64 +25,71 @@ namespace MyMediaRenamer.Cli
             app.HelpOption("-h|--help");
 
             var defaultStringOption = app.Option("--default-string", "The default string used when a tag fails to produce a valid string", CommandOptionType.SingleValue);
-            var skipNullOption = app.Option("--skip-null", "Skip renaming a file if a tag fails to produce a valid string.", CommandOptionType.NoValue);
-            var testOption = app.Option("-d|--dry-run", "Do a dry-run where the program does not actually rename any files.", CommandOptionType.NoValue);
-            
+            var dryRunOption = app.Option("-d|--dry-run", "Do a dry-run where the program does not actually rename any files", CommandOptionType.NoValue);
+            var recursiveOption = app.Option("-r|--recursive", "Recursively access files under given directories", CommandOptionType.NoValue);
+            var skipNullOption = app.Option("--skip-null", "Skip renaming a file if a tag fails to produce a valid string", CommandOptionType.NoValue);
 
-            var patternArgument = app.Argument("File Name Pattern", "Pattern used to determine the new file name of each file.", false);
-            var filesArgument = app.Argument("Media Files", "File(s) to rename.", true);
+            var patternArgument = app.Argument("File Name Pattern", "Pattern used to determine the new file name of each file", false);
+            var filesArgument = app.Argument("Media Files", "File(s) to rename", true);
 
             app.OnExecute(() =>
             {
                 if (string.IsNullOrEmpty(patternArgument.Value) || !(filesArgument.Values.Count > 0))
                 {
                     app.ShowHint();
-                    returnCode = 1;
+                    _returnCode = 1;
                 }
 
                 if (defaultStringOption.HasValue())
                     Renamer.NullTagString = defaultStringOption.Value();
                 if (skipNullOption.HasValue())
                     Renamer.SkipOnNullTag = true;
-                if (testOption.HasValue())
+                if (dryRunOption.HasValue())
                     Renamer.DryRun = true;
 
                 try
                 {
                     var tags = PatternParser.Parse(patternArgument.Value);
-                    var mediaFiles = GetMediaFilesFromStrings(filesArgument.Values);
-                    Renamer.Execute(mediaFiles, tags);
+                    ProcessFilePaths(filesArgument.Values.ToArray(), recursiveOption.HasValue());
+                    Renamer.Execute(MediaFiles, tags);
                 }
                 catch (PatternInvalidException e)
                 {
                     WriteError("Pattern provided by the user is invalid.", e, false);
-                    returnCode = 1;
+                    _returnCode = 1;
                 }
                 catch (Exception e)
                 {
                     WriteError("Program has encountered an unexpected error!\n", e, true);
-                    returnCode = 1;
+                    _returnCode = 1;
                 }
 
-                return returnCode;
+                return _returnCode;
             });
 
             return app.Execute(args);
         }
 
-        private static IList<MediaFile> GetMediaFilesFromStrings(IList<string> filePaths)
+        private static void ProcessFilePaths(string[] filePaths, bool recursive)
         {
-            List<MediaFile> mediaFiles = new List<MediaFile>();
-
             foreach (var filePath in filePaths)
             {
-                var mediaFile = new MediaFile(filePath);
-                mediaFile.Renamed += MediaFile_Renamed;
-                mediaFile.ErrorReported += MediaFile_ErrorReported;
-                mediaFiles.Add(mediaFile);
+                if (Directory.Exists(filePath))
+                {
+                    ProcessFilePaths(Directory.GetFileSystemEntries(filePath), recursive);
+                }
+                else if (File.Exists(filePath))
+                {
+                    MediaFiles.Add(GetMediaFileFromFilePath(filePath));
+                }
             }
-
-            return mediaFiles;
+        }
+        private static MediaFile GetMediaFileFromFilePath(string filePath)
+        {
+            var mediaFile = new MediaFile(filePath);
+            mediaFile.Renamed += MediaFile_Renamed;
+            mediaFile.ErrorReported += MediaFile_ErrorReported;
+            return mediaFile;
         }
 
         private static void WriteError(string header, Exception exception, bool showStackTrace)
@@ -105,7 +115,7 @@ namespace MyMediaRenamer.Cli
             MediaFile mediaFile = sender as MediaFile;
 
             Console.WriteLine($"Error occured while trying to rename '{mediaFile.FilePath}'. Reason: {e.ErrorMessage}");
-            returnCode = 1;
+            _returnCode = 1;
         }
     }
 }
