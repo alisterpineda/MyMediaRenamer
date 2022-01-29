@@ -27,7 +27,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifDateTimeDigitized}, "2017:08:26 16:00:19" },
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifComponentsConfiguration}, "YCbCr" },
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifShutterSpeed}, "1/349 sec" },
-            new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifBrightness}, "3607/391" },
+            new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifBrightness}, "9.225" },
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifExposureBias}, "0 EV" },
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifMeteringMode}, "Spot" },
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.ExifFlash}, "Flash did not fire, auto" },
@@ -53,7 +53,7 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.GpsLongitudeRef}, "E" },
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.GpsLongitude}, "120° 12' 17.24\"" },
             new object[] { IosPhoto, new MetadataTag{Name = MetadataName.GpsAltitudeRef}, "Sea level" },
-            new object[] { IosPhoto, new MetadataTag{Name = MetadataName.GpsAltitude}, "200 metres" },
+            new object[] { IosPhoto, new MetadataTag{Name = MetadataName.GpsAltitude}, "200.23 metres" },
         };
 
         [TestCaseSource(nameof(GetStringCases))]
