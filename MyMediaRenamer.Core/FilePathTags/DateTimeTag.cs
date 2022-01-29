@@ -47,7 +47,7 @@ namespace MyMediaRenamer.Core.FilePathTags
             DateTime? dateTime = null;
             if (mediaFile.FileType == FileType.Jpeg)
                 dateTime = GetDateTimeFromPhoto(mediaFile);
-            else if (mediaFile.FileType == FileType.QuickTime)
+            else if (mediaFile.FileType == FileType.QuickTime || mediaFile.FileType == FileType.Mp4)
                 dateTime = GetDateTimeFromVideo(mediaFile);
 
             return dateTime?.ToString(Format);
