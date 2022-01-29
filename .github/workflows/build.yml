@@ -47,14 +47,8 @@ jobs:
       with:
         dotnet-version: '6.0.x'
     - name: Build
-      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli/MyMediaRenamer.Cli.csproj -c Release -r ${{matrix.runtime}} /p:PublishSingleFile=true /p:PublishTrimmed=true
+      run: dotnet publish ${env:GITHUB_WORKSPACE}/MyMediaRenamer.Cli/MyMediaRenamer.Cli.csproj -c Release -r ${{matrix.runtime}} /p:PublishSingleFile=true /p:PublishTrimmed=true /p:DebugType=None /p:DebugSymbols=false
       shell: powershell
-    - name: Clean-up
-      working-directory: MyMediaRenamer.Cli/bin/Release/netcoreapp3.0/${{matrix.runtime}}/publish
-      shell: powershell
-      run: |
-        Remove-Item *.pdb
-        Get-ChildItem MyMediaRenamer.Cli* | Rename-Item -NewName  {$_.name -replace '^MyMediaRenamer.Cli', 'MyMediaRenamer'}
     - name: Upload artifacts
       uses: actions/upload-artifact@master
       with:
