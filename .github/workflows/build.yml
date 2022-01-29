@@ -28,7 +28,7 @@ jobs:
       working-directory: MyMediaRenamer.Gui
     - name: Build
       working-directory: MyMediaRenamer.Gui
-      run: msbuild MyMediaRenamer.Gui.csproj /p:Configuration=Release
+      run: msbuild MyMediaRenamer.Gui.csproj /p:Configuration=Release /p:DebugType=None /p:DebugSymbols=false
     - name: Upload artifacts
       uses: actions/upload-artifact@master
       with:
@@ -40,7 +40,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        runtime: [win10-x64, osx.10.12-x64, linux-x64]
+        runtime: [win-x64, win-arm64, osx-x64, osx.12-arm64, linux-x64, linux-arm64]
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-dotnet@v1
@@ -53,4 +53,4 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: MyMediaRenamer.Cli.${{matrix.runtime}}
-        path: MyMediaRenamer.Cli/bin/Release/netcoreapp3.0/${{matrix.runtime}}/publish
+        path: MyMediaRenamer.Cli/bin/Release/net6.0/${{matrix.runtime}}/publish
