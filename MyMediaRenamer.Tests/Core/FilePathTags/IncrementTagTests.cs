@@ -12,9 +12,9 @@ namespace MyMediaRenamer.Tests.Core.FilePathTags
     {
         private static readonly string[,] _mockFilePaths =
         {
-            { @"C:\file00.txt", @"C:\file01.txt", @"C:\file02.txt", @"C:\file03.txt", @"C:\file04.txt" },
-            { @"C:\dir1\file10.txt", @"C:\dir1\file11.txt", @"C:\dir1\file12.txt", @"C:\dir1\file13.txt", @"C:\dir1\file14.txt" },
-            { @"C:\dir2\file20.txt", @"C:\dir2\file21.txt", @"C:\dir2\file22.txt", @"C:\dir2\file23.txt", @"C:\dir2\file24.txt" }
+            { @"C:/file00.txt", @"C:/file01.txt", @"C:/file02.txt", @"C:/file03.txt", @"C:/file04.txt" },
+            { @"C:/dir1/file10.txt", @"C:/dir1/file11.txt", @"C:/dir1/file12.txt", @"C:/dir1/file13.txt", @"C:/dir1/file14.txt" },
+            { @"C:/dir2/file20.txt", @"C:/dir2/file21.txt", @"C:/dir2/file22.txt", @"C:/dir2/file23.txt", @"C:/dir2/file24.txt" }
         };
 
         private static readonly MockFileSystem mockFileSystem = new MockFileSystem(new Dictionary<string, MockFileData>

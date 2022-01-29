@@ -76,7 +76,7 @@ namespace MyMediaRenamer.Core.FilePathTags
 
         private string GenerateString_PerDirectory(Renamer renamer, MediaFile mediaFile)
         {
-            var fullPath = Path.GetFullPath(mediaFile.FileDirectory);
+            var fullPath = mediaFile.FileSystem.Path.GetDirectoryName(mediaFile.FilePath);
             if (!_directoryCounter.ContainsKey(fullPath))
             {
                 _directoryCounter[fullPath] = 0;
